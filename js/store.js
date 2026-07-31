@@ -8,15 +8,14 @@ const Store = {
 
     init() {
         // Load from localStorage or use mock data
-        const saved = localStorage.getItem('vlu_smartedu_data');
-        if (saved) {
-            try {
-                this._state = JSON.parse(saved);
-            } catch (e) {
-                this._state = JSON.parse(JSON.stringify(MOCK_DATA));
-            }
-        } else {
+        if (!localStorage.getItem('vlu_smartedu_data')) {
             this._state = JSON.parse(JSON.stringify(MOCK_DATA));
+            this.save();
+        } else {
+            this._state = JSON.parse(localStorage.getItem('vlu_smartedu_data'));
+            // Always sync users from MOCK_DATA to fix password mismatches after updates
+            this._state.users = JSON.parse(JSON.stringify(MOCK_DATA.users));
+            this.save();
         }
         // Always ensure auth state
         this._state.auth = this._state.auth || { user: null, isLoggedIn: false };
