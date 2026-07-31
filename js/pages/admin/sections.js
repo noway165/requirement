@@ -43,14 +43,14 @@ const AdminSections = {
                 { field: 'enrolled', label: 'Sĩ số', render: (val, row) => {
                     const percent = (val / row.maxStudents) * 100;
                     const color = percent >= 100 ? 'bg-red-500' : (percent >= 80 ? 'bg-yellow-500' : 'bg-green-500');
-                    return \`
+                    return `
                         <div class="flex flex-col gap-1 w-full max-w-[100px]">
-                            <div class="text-xs text-right">\${val}/\${row.maxStudents}</div>
+                            <div class="text-xs text-right">${val}/${row.maxStudents}</div>
                             <div class="w-full bg-gray-200 rounded-full h-1.5">
-                                <div class="\${color} h-1.5 rounded-full" style="width: \${Math.min(percent, 100)}%"></div>
+                                <div class="${color} h-1.5 rounded-full" style="width: ${Math.min(percent, 100)}%"></div>
                             </div>
                         </div>
-                    \`;
+                    `;
                 } },
                 { field: 'status', label: 'Trạng thái', render: val => Utils.getSectionStatusBadge(val) }
             ],
@@ -72,7 +72,7 @@ const AdminSections = {
 
     showAddModal: function() {
         const courses = Store.getCourses();
-        const courseOptions = courses.map(c => ({ value: c.code, label: \`\${c.code} - \${c.name}\` }));
+        const courseOptions = courses.map(c => ({ value: c.code, label: `${c.code} - ${c.name}` }));
         
         Modal.form({
             title: 'Mở Lớp học phần mới',
@@ -131,7 +131,7 @@ const AdminSections = {
         
         Modal.confirm({
             title: 'Xác nhận',
-            message: \`Bạn có chắc chắn muốn \${newStatus === 'open' ? 'mở lại' : 'đóng'} lớp học phần này?\`,
+            message: `Bạn có chắc chắn muốn ${newStatus === 'open' ? 'mở lại' : 'đóng'} lớp học phần này?`,
             onConfirm: async () => {
                 await Store.updateSection(id, { ...section, status: newStatus });
                 Toast.success('Thành công', 'Đã thay đổi trạng thái');

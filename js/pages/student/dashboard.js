@@ -126,14 +126,14 @@ window.StudentDashboard = {
                                     const course = allCourses.find(c => c.id === g.courseId);
                                     if (!course) return '';
                                     const badge = Utils.getCourseStatusBadge(g.status);
-                                    return \`
+                                    return `
                                         <tr>
-                                            <td style="font-family:var(--font-mono);font-size:var(--text-xs);">\${course.code}</td>
-                                            <td><strong>\${course.name}</strong></td>
-                                            <td>\${course.credits}</td>
-                                            <td><span class="badge \${badge.class}">\${badge.text}</span></td>
+                                            <td style="font-family:var(--font-mono);font-size:var(--text-xs);">${course.code}</td>
+                                            <td><strong>${course.name}</strong></td>
+                                            <td>${course.credits}</td>
+                                            <td><span class="badge ${badge.class}">${badge.text}</span></td>
                                         </tr>
-                                    \`;
+                                    `;
                                 }).join('') || '<tr><td colspan="4" style="text-align:center;color:var(--text-secondary);">Không có môn học nào đang học</td></tr>'}
                             </tbody>
                         </table>
@@ -147,15 +147,15 @@ window.StudentDashboard = {
                         <h3 class="card-title"><i data-lucide="bell" style="width:18px;height:18px;margin-right:8px;vertical-align:-4px;"></i>Thông báo mới</h3>
                     </div>
                     <div class="notification-list" style="max-height: 250px;">
-                        ${notifications.slice(0, 5).map(n => \`
+                        ${notifications.slice(0, 5).map(n => `
                             <div class="notification-item" style="padding:var(--space-3) 0; border-bottom: 1px solid var(--border-secondary);">
-                                <div class="notification-dot" style="margin-top:6px;\${n.read ? 'opacity:0.3;background:var(--text-tertiary);' : ''}"></div>
+                                <div class="notification-dot" style="margin-top:6px;${n.read ? 'opacity:0.3;background:var(--text-tertiary);' : ''}"></div>
                                 <div class="notification-content">
-                                    <div class="notification-text"><strong>\${n.title}</strong></div>
-                                    <div class="notification-time">\${Utils.timeAgo(n.createdAt)}</div>
+                                    <div class="notification-text"><strong>${n.title}</strong></div>
+                                    <div class="notification-time">${Utils.timeAgo(n.createdAt)}</div>
                                 </div>
                             </div>
-                        \`).join('') || '<div class="empty-state" style="padding:var(--space-6);"><p>Không có thông báo nào</p></div>'}
+                        `).join('') || '<div class="empty-state" style="padding:var(--space-6);"><p>Không có thông báo nào</p></div>'}
                     </div>
                 </div>
                 
