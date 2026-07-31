@@ -3,9 +3,9 @@
 // ============================================
 
 const App = {
-    init() {
+    async init() {
         // Initialize store
-        Store.init();
+        await Store.init();
 
         // Initialize login page
         LoginPage.init();
@@ -91,6 +91,6 @@ const App = {
 };
 
 // Boot
-document.addEventListener('DOMContentLoaded', () => {
-    App.init();
+document.addEventListener('DOMContentLoaded', async () => {
+    await App.init();
 });

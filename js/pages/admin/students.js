@@ -76,14 +76,14 @@ const AdminStudents = {
                 { name: 'faculty', label: 'Khoa', type: 'select', options: Store.getFaculties ? Store.getFaculties().map(f => ({value: f, label: f})) : [], required: true },
                 { name: 'gpa', label: 'GPA', type: 'number', required: true }
             ],
-            onSubmit: (data) => {
+            onSubmit: async (data) => {
                 const students = Store.getStudents();
                 if (students.find(s => s.mssv === data.mssv)) {
                     Toast.error('Lỗi', 'MSSV đã tồn tại');
                     return false;
                 }
                 data.status = 'active';
-                Store.addStudent(data);
+                await Store.addStudent(data);
                 Toast.success('Thành công', 'Đã thêm sinh viên');
                 this.renderTable();
                 return true;
@@ -102,13 +102,13 @@ const AdminStudents = {
                 { name: 'faculty', label: 'Khoa', type: 'select', value: student.faculty, options: Store.getFaculties ? Store.getFaculties().map(f => ({value: f, label: f})) : [], required: true },
                 { name: 'gpa', label: 'GPA', type: 'number', value: student.gpa, required: true }
             ],
-            onSubmit: (data) => {
+            onSubmit: async (data) => {
                 const students = Store.getStudents();
                 if (students.find(s => s.mssv === data.mssv && s.id !== id)) {
                     Toast.error('Lỗi', 'MSSV đã tồn tại');
                     return false;
                 }
-                Store.updateStudent(id, data);
+                await Store.updateStudent(id, data);
                 Toast.success('Thành công', 'Đã cập nhật sinh viên');
                 this.renderTable();
                 return true;
@@ -135,10 +135,10 @@ const AdminStudents = {
         });
     },
 
-    toggleStatus: function(id) {
+    toggleStatus: async function(id) {
         const student = Store.getStudentById(id);
         const newStatus = student.status === 'locked' ? 'active' : 'locked';
-        Store.updateStudent(id, { ...student, status: newStatus });
+        await Store.updateStudent(id, { ...student, status: newStatus });
         Toast.success('Thành công', 'Đã thay đổi trạng thái');
         this.renderTable();
     },
@@ -147,8 +147,8 @@ const AdminStudents = {
         Modal.confirm({
             title: 'Xác nhận xóa',
             message: 'Bạn có chắc chắn muốn xóa sinh viên này?',
-            onConfirm: () => {
-                Store.deleteStudent(id);
+            onConfirm: async () => {
+                await Store.deleteStudent(id);
                 Toast.success('Thành công', 'Đã xóa sinh viên');
                 this.renderTable();
             }

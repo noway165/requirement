@@ -64,7 +64,7 @@ const AdminCurriculum = {
                 { name: 'mandatoryCredits', label: 'Tín chỉ bắt buộc', type: 'number', required: true },
                 { name: 'electiveCredits', label: 'Tín chỉ tự chọn', type: 'number', required: true }
             ],
-            onSubmit: (data) => {
+            onSubmit: async (data) => {
                 const curricula = Store.getCurricula();
                 if (curricula.find(c => c.code === data.code)) {
                     Toast.error('Lỗi', 'Mã CTĐT đã tồn tại');
@@ -73,7 +73,7 @@ const AdminCurriculum = {
                 data.totalCredits = parseInt(data.mandatoryCredits) + parseInt(data.electiveCredits);
                 data.status = 'draft';
                 data.courses = [];
-                Store.addCurriculum(data);
+                await Store.addCurriculum(data);
                 Toast.success('Thành công', 'Đã thêm CTĐT');
                 this.renderTable();
                 return true;
@@ -92,8 +92,8 @@ const AdminCurriculum = {
                     {value: 'archived', label: 'Đã lưu trữ'}
                 ], required: true }
             ],
-            onSubmit: (data) => {
-                Store.updateCurriculum(id, { ...curriculum, status: data.status });
+            onSubmit: async (data) => {
+                await Store.updateCurriculum(id, { ...curriculum, status: data.status });
                 Toast.success('Thành công', 'Đã cập nhật trạng thái');
                 this.renderTable();
                 return true;

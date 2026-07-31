@@ -67,7 +67,7 @@ const AdminCourses = {
                     {value: 'elective', label: 'Tự chọn'}
                 ], required: true }
             ],
-            onSubmit: (data) => {
+            onSubmit: async (data) => {
                 const courses = Store.getCourses();
                 if (courses.find(c => c.code === data.code)) {
                     Toast.error('Lỗi', 'Mã môn học đã tồn tại');
@@ -78,7 +78,7 @@ const AdminCourses = {
                     return false;
                 }
                 data.credits = parseInt(data.credits, 10);
-                Store.addCourse(data);
+                await Store.addCourse(data);
                 Toast.success('Thành công', 'Đã thêm môn học');
                 this.renderTable();
                 return true;
@@ -100,7 +100,7 @@ const AdminCourses = {
                     {value: 'elective', label: 'Tự chọn'}
                 ], required: true }
             ],
-            onSubmit: (data) => {
+            onSubmit: async (data) => {
                 const courses = Store.getCourses();
                 if (courses.find(c => c.code === data.code && c.id !== id)) {
                     Toast.error('Lỗi', 'Mã môn học đã tồn tại');
@@ -111,7 +111,7 @@ const AdminCourses = {
                     return false;
                 }
                 data.credits = parseInt(data.credits, 10);
-                Store.updateCourse(id, data);
+                await Store.updateCourse(id, data);
                 Toast.success('Thành công', 'Đã cập nhật môn học');
                 this.renderTable();
                 return true;
@@ -123,7 +123,7 @@ const AdminCourses = {
         Modal.confirm({
             title: 'Xác nhận xóa',
             message: 'Bạn có chắc chắn muốn xóa môn học này?',
-            onConfirm: () => {
+            onConfirm: async () => {
                 const course = Store.getCourses().find(c => c.id === id);
                 
                 // Business rule check (mock checks for curricula and sections)
@@ -135,7 +135,7 @@ const AdminCourses = {
                     return;
                 }
                 
-                Store.deleteCourse(id);
+                await Store.deleteCourse(id);
                 Toast.success('Thành công', 'Đã xóa môn học');
                 this.renderTable();
             }

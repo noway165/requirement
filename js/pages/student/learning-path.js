@@ -169,7 +169,7 @@ window.StudentLearningPath = {
         Modal.show('Cập nhật điểm', html);
     },
     
-    saveGrade: function(event, courseId) {
+    saveGrade: async function(event, courseId) {
         event.preventDefault();
         const gradeVal = parseFloat(document.getElementById('gradeValue').value);
         if (isNaN(gradeVal) || gradeVal < 0 || gradeVal > 10) {
@@ -181,7 +181,7 @@ window.StudentLearningPath = {
         const students = Store.getStudents() || [];
         const student = students.find(s => s.email === user.email);
         
-        Store.addOrUpdateGrade({
+        await Store.addOrUpdateGrade({
             studentId: student.id,
             courseId: courseId,
             grade: gradeVal,

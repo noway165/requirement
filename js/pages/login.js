@@ -58,8 +58,8 @@ const LoginPage = {
         errorEl.style.display = 'none';
 
         // Simulate network delay
-        setTimeout(() => {
-            const result = Store.login(email, password);
+        setTimeout(async () => {
+            const result = await Store.login(email, password);
 
             if (result.success) {
                 // Success animation

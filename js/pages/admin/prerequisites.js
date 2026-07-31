@@ -59,7 +59,7 @@ const AdminPrerequisites = {
                     {value: 'recommended', label: 'Khuyến nghị'}
                 ], required: true }
             ],
-            onSubmit: (data) => {
+            onSubmit: async (data) => {
                 if (data.courseCode === data.prerequisiteCode) {
                     Toast.error('Lỗi', 'Môn học và môn tiên quyết không được trùng nhau');
                     return false;
@@ -72,7 +72,7 @@ const AdminPrerequisites = {
                     prerequisiteName: c2 ? c2.name : ''
                 };
                 
-                Store.addPrerequisite(newData);
+                await Store.addPrerequisite(newData);
                 Toast.success('Thành công', 'Đã thêm môn tiên quyết');
                 this.renderTable();
                 return true;
@@ -84,8 +84,8 @@ const AdminPrerequisites = {
         Modal.confirm({
             title: 'Xác nhận xóa',
             message: 'Bạn có chắc chắn muốn xóa quan hệ tiên quyết này?',
-            onConfirm: () => {
-                Store.deletePrerequisite(id);
+            onConfirm: async () => {
+                await Store.deletePrerequisite(id);
                 Toast.success('Thành công', 'Đã xóa môn tiên quyết');
                 this.renderTable();
             }

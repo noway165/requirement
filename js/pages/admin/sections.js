@@ -89,15 +89,15 @@ const AdminSections = {
                     {value: 'HK1_2024', label: 'HK1 2024-2025'}
                 ], required: true }
             ],
-            onSubmit: (data) => {
+            onSubmit: async (data) => {
                 const course = Store.getCourseByCode(data.courseCode);
                 data.courseName = course ? course.name : '';
-                data.code = data.code || \`\${data.courseCode}_\${Math.floor(Math.random() * 1000)}\`;
+                data.code = data.code || `${data.courseCode}_${Math.floor(Math.random() * 1000)}`;
                 data.enrolled = 0;
                 data.maxStudents = parseInt(data.maxStudents, 10);
                 data.status = 'open';
                 
-                Store.addSection(data);
+                await Store.addSection(data);
                 Toast.success('Thành công', 'Đã mở lớp học phần');
                 this.renderTable();
                 return true;
@@ -115,9 +115,9 @@ const AdminSections = {
                 { name: 'schedule', label: 'Lịch học', type: 'text', value: section.schedule, required: true },
                 { name: 'maxStudents', label: 'Sĩ số tối đa', type: 'number', value: section.maxStudents, required: true }
             ],
-            onSubmit: (data) => {
+            onSubmit: async (data) => {
                 data.maxStudents = parseInt(data.maxStudents, 10);
-                Store.updateSection(id, { ...section, ...data });
+                await Store.updateSection(id, { ...section, ...data });
                 Toast.success('Thành công', 'Đã cập nhật lớp học phần');
                 this.renderTable();
                 return true;
@@ -132,8 +132,8 @@ const AdminSections = {
         Modal.confirm({
             title: 'Xác nhận',
             message: \`Bạn có chắc chắn muốn \${newStatus === 'open' ? 'mở lại' : 'đóng'} lớp học phần này?\`,
-            onConfirm: () => {
-                Store.updateSection(id, { ...section, status: newStatus });
+            onConfirm: async () => {
+                await Store.updateSection(id, { ...section, status: newStatus });
                 Toast.success('Thành công', 'Đã thay đổi trạng thái');
                 this.renderTable();
             }

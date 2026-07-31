@@ -95,9 +95,9 @@ const AdvisorApproval = {
             Modal.confirm({
                 title: 'Xác nhận duyệt',
                 message: 'Bạn có chắc chắn muốn duyệt kế hoạch học tập này?',
-                onConfirm: () => {
-                    if (Store.updateLearningPath) Store.updateLearningPath(planId, { approvalStatus: 'approved' });
-                    if (Store.addAdvisoryLog) Store.addAdvisoryLog({ planId, action: 'approved', date: new Date() });
+                onConfirm: async () => {
+                    if (Store.updateLearningPath) await Store.updateLearningPath(planId, { approvalStatus: 'approved' });
+                    if (Store.addAdvisoryLog) await Store.addAdvisoryLog({ planId, action: 'approved', date: new Date() });
                     if (window.Toast) Toast.success('Đã duyệt kế hoạch học tập');
                     this.render();
                 }
@@ -112,13 +112,13 @@ const AdvisorApproval = {
                 fields: [
                     { name: 'reason', label: 'Lý do từ chối (bắt buộc)', type: 'textarea', required: true }
                 ],
-                onSubmit: (data) => {
+                onSubmit: async (data) => {
                     if (!data.reason.trim()) {
                         if (window.Toast) Toast.error('Vui lòng nhập lý do từ chối');
                         return false; // Prevent close
                     }
-                    if (Store.updateLearningPath) Store.updateLearningPath(planId, { approvalStatus: 'rejected', advisorNote: data.reason });
-                    if (Store.addAdvisoryLog) Store.addAdvisoryLog({ planId, action: 'rejected', note: data.reason, date: new Date() });
+                    if (Store.updateLearningPath) await Store.updateLearningPath(planId, { approvalStatus: 'rejected', advisorNote: data.reason });
+                    if (Store.addAdvisoryLog) await Store.addAdvisoryLog({ planId, action: 'rejected', note: data.reason, date: new Date() });
                     if (window.Toast) Toast.success('Đã từ chối kế hoạch học tập');
                     this.render();
                     return true;

@@ -136,11 +136,11 @@ const AdvisorAlerts = {
             Modal.confirm({
                 title: 'Xác nhận gửi',
                 message: `Bạn sẽ gửi thông báo này đến ${selected.length} sinh viên?`,
-                onConfirm: () => {
+                onConfirm: async () => {
                     const user = Store.getCurrentUser();
-                    selected.forEach(stId => {
+                    for (const stId of selected) {
                         if (Store.addNotification) {
-                            Store.addNotification({
+                            await Store.addNotification({
                                 senderId: user.id,
                                 recipientId: stId,
                                 title: title,
@@ -149,7 +149,7 @@ const AdvisorAlerts = {
                                 read: false
                             });
                         }
-                    });
+                    }
                     if (window.Toast) Toast.success('Đã gửi thông báo thành công');
                     this.render(); // refresh
                 }
