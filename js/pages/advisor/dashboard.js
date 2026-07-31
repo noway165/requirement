@@ -14,11 +14,17 @@ const AdvisorDashboard = {
             else { activeCount++; }
         });
         
-        // Mock recent logs if API is not there
-        const recentLogs = [
-            { studentName: 'Nguyễn Văn A', date: new Date(), note: 'Nhắc nhở đăng ký học phần' },
-            { studentName: 'Lê Thị B', date: new Date(Date.now() - 86400000), note: 'Tư vấn cải thiện điểm' }
-        ];
+        // Fetch recent logs dynamically
+        const allLogs = Store.getAdvisoryLogs ? Store.getAdvisoryLogs() : [];
+        const advisorLogs = allLogs.filter(l => l.advisorId === user.id);
+        const recentLogs = advisorLogs.map(log => {
+            const stu = Store.getStudentById ? Store.getStudentById(log.studentId) : null;
+            return {
+                studentName: stu ? stu.name : log.studentId,
+                date: new Date(log.createdAt || Date.now()),
+                note: log.note || log.action
+            };
+        }).sort((a,b) => b.date - a.date);
 
         const html = `
             <div class="page-header mb-4">

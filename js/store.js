@@ -287,7 +287,8 @@ const Store = {
         this.save();
     },
 
-    // ── Advisory Logs ──
+    // 📊 Advisory Logs 📊
+    getAdvisors() { return (this._state.users || []).filter(u => u.role === 'advisor'); },
     getAdvisoryLogs() { return this._state.advisoryLogs || []; },
     getLogsForStudent(studentId) { return this._state.advisoryLogs.filter(l => l.studentId === studentId); },
 

@@ -56,6 +56,11 @@ const AdminStudents = {
                     onClick: (row) => this.toggleStatus(row.id)
                 },
                 {
+                    icon: 'user-plus',
+                    label: 'Phân cố vấn',
+                    onClick: (row) => this.showAssignAdvisorModal(row.id)
+                },
+                {
                     icon: 'trash-2',
                     label: 'Xóa',
                     className: 'text-error',
@@ -153,6 +158,44 @@ const AdminStudents = {
                 this.renderTable();
             }
         });
+    }
+    showAssignAdvisorModal: function(id) {
+        const student = Store.getStudentById(id);
+        const advisors = Store.getAdvisors ? Store.getAdvisors() : [];
+        
+        const advisorOptions = advisors.map(a => `<option value="${a.id}" ${student.advisorId === a.id ? 'selected' : ''}>${a.name} (${a.email})</option>`).join('');
+        
+        const html = `
+            <form id="assignAdvisorForm" onsubmit="AdminStudents.saveAdvisor(event, '${id}')">
+                <div class="mb-4">
+                    <label class="block mb-2 font-bold text-gray-700">Sinh viên</label>
+                    <input type="text" class="w-full border rounded p-2 bg-gray-100" value="${student.name} - ${student.mssv}" disabled>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-2 font-bold text-gray-700">Cố vấn học tập</label>
+                    <select id="advisorId" class="w-full border rounded p-2">
+                        <option value="">-- Chọn cố vấn --</option>
+                        ${advisorOptions}
+                    </select>
+                </div>
+                <div class="flex justify-end gap-2 mt-6">
+                    <button type="button" class="btn btn-secondary" onclick="Modal.close()">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        `;
+        Modal.show('Phân công Cố vấn học tập', html);
+    },
+    
+    saveAdvisor: async function(e, id) {
+        e.preventDefault();
+        const advisorId = document.getElementById('advisorId').value;
+        if (Store.updateStudent) {
+            await Store.updateStudent(id, { advisorId: advisorId || null });
+            Toast.success('Thành công', 'Đã phân công cố vấn học tập');
+            Modal.close();
+            this.renderTable();
+        }
     }
 };
 
