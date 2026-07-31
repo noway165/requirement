@@ -186,7 +186,7 @@ window.StudentDashboard = {
         
         // Render progress chart
         setTimeout(() => {
-            if (window.Charts && typeof Charts.progressRing === 'function') {
+            if (typeof Charts !== 'undefined' && typeof Charts.progressRing === 'function') {
                 Charts.progressRing('progressChart', earnedCredits, totalCredits, {
                     label: 'Hoàn thành'
                 });

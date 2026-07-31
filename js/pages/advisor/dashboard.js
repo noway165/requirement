@@ -82,7 +82,7 @@ const AdvisorDashboard = {
         document.getElementById('page-content').innerHTML = html;
         if (window.lucide) lucide.createIcons();
         
-        if (window.Charts && typeof Charts.donut === 'function') {
+        if (typeof Charts !== 'undefined' && typeof Charts.donut === 'function') {
             setTimeout(() => {
                 Charts.donut('student-status-chart', [
                     { label: 'Bình thường', value: activeCount, color: '#10b981' },

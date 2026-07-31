@@ -82,7 +82,7 @@ const AdvisorReports = {
         document.getElementById('page-content').innerHTML = html;
         if (window.lucide) lucide.createIcons();
         
-        if (window.Charts) {
+        if (typeof Charts !== 'undefined') {
             setTimeout(() => {
                 if (typeof Charts.donut === 'function') {
                     Charts.donut('status-distribution-chart', [

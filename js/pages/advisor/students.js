@@ -52,7 +52,7 @@ const AdvisorStudents = {
     },
     
     renderTable: function(data) {
-        if (!window.DataTable) return;
+        if (typeof DataTable === 'undefined') return;
         
         const columns = [
             { key: 'mssv', label: 'MSSV' },
