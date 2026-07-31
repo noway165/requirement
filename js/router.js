@@ -50,16 +50,22 @@ const Router = {
             if (pageContent) {
                 pageContent.classList.add('page-exit');
                 setTimeout(() => {
-                    handler();
-                    pageContent.classList.remove('page-exit');
-                    pageContent.classList.add('page-enter');
-                    setTimeout(() => pageContent.classList.remove('page-enter'), 300);
-                    // Re-render icons
-                    if (window.lucide) lucide.createIcons();
-                    // Update sidebar active state
-                    this.updateSidebarActive(hash);
-                    // Update breadcrumb
-                    this.updateBreadcrumb(hash);
+                    try {
+                        handler();
+                        pageContent.classList.remove('page-exit');
+                        pageContent.classList.add('page-enter');
+                        setTimeout(() => pageContent.classList.remove('page-enter'), 300);
+                        // Re-render icons
+                        if (window.lucide) lucide.createIcons();
+                        // Update sidebar active state
+                        this.updateSidebarActive(hash);
+                        // Update breadcrumb
+                        this.updateBreadcrumb(hash);
+                    } catch (error) {
+                        console.error('Route error:', error);
+                        pageContent.classList.remove('page-exit');
+                        pageContent.innerHTML = `<div style="padding: 20px; color: red;"><h3>Lỗi hiển thị trang:</h3><pre>${error.message}</pre><pre>${error.stack}</pre></div>`;
+                    }
                 }, 150);
             }
         } else {
