@@ -156,13 +156,15 @@ const Utils = {
     // ── Status Helpers ──
     getStudentStatusBadge(status) {
         const statusMap = {
-            'active': { text: 'Đạt tốt', class: 'badge-success', icon: 'check-circle' },
+            'active': { text: 'Đang học', class: 'badge-success', icon: 'check-circle' },
             'warning': { text: 'Cảnh báo', class: 'badge-danger', icon: 'alert-triangle' },
             'behind': { text: 'Trễ tiến độ', class: 'badge-warning', icon: 'clock' },
             'graduated': { text: 'Tốt nghiệp', class: 'badge-info', icon: 'award' },
             'suspended': { text: 'Tạm dừng', class: 'badge-neutral', icon: 'pause-circle' },
+            'locked': { text: 'Đã khóa', class: 'badge-danger', icon: 'lock' },
         };
-        return statusMap[status] || { text: status, class: 'badge-neutral', icon: 'circle' };
+        const b = statusMap[status] || { text: status, class: 'badge-neutral', icon: 'circle' };
+        return `<span class="badge ${b.class}">${b.icon ? `<i data-lucide="${b.icon}" style="width:12px;height:12px;margin-right:4px;display:inline-block;"></i>` : ''}${b.text}</span>`;
     },
 
     getCourseStatusBadge(status) {
@@ -172,7 +174,8 @@ const Utils = {
             'failed': { text: 'Rớt', class: 'badge-danger' },
             'pending': { text: 'Chưa học', class: 'badge-neutral' },
         };
-        return map[status] || { text: status, class: 'badge-neutral' };
+        const b = map[status] || { text: status, class: 'badge-neutral' };
+        return `<span class="badge ${b.class}">${b.text}</span>`;
     },
 
     getApprovalStatusBadge(status) {
@@ -181,7 +184,8 @@ const Utils = {
             'approved': { text: 'Đã duyệt', class: 'badge-success' },
             'rejected': { text: 'Từ chối', class: 'badge-danger' },
         };
-        return map[status] || { text: status, class: 'badge-neutral' };
+        const b = map[status] || { text: status, class: 'badge-neutral' };
+        return `<span class="badge ${b.class}">${b.text}</span>`;
     },
 
     getCurriculumStatusBadge(status) {
@@ -190,7 +194,8 @@ const Utils = {
             'draft': { text: 'Bản nháp', class: 'badge-warning' },
             'archived': { text: 'Đã lưu trữ', class: 'badge-neutral' },
         };
-        return map[status] || { text: status, class: 'badge-neutral' };
+        const b = map[status] || { text: status, class: 'badge-neutral' };
+        return `<span class="badge ${b.class}">${b.text}</span>`;
     },
 
     getSectionStatusBadge(status) {
@@ -198,7 +203,8 @@ const Utils = {
             'open': { text: 'Đang mở', class: 'badge-success' },
             'closed': { text: 'Đã đóng', class: 'badge-danger' },
         };
-        return map[status] || { text: status, class: 'badge-neutral' };
+        const b = map[status] || { text: status, class: 'badge-neutral' };
+        return `<span class="badge ${b.class}">${b.text}</span>`;
     },
 
     // ── Notification Type ──

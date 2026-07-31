@@ -32,7 +32,7 @@ const Charts = {
         ctx.clearRect(0, 0, w, h);
 
         // Grid lines
-        ctx.strokeStyle = 'rgba(148,163,184,0.1)';
+        ctx.strokeStyle = 'rgba(148,163,184,0.2)';
         ctx.lineWidth = 1;
         for (let i = 0; i <= 4; i++) {
             const y = padding.top + (chartH / 4) * i;
@@ -41,10 +41,10 @@ const Charts = {
             ctx.lineTo(w - padding.right, y);
             ctx.stroke();
 
-            ctx.fillStyle = '#64748B';
-            ctx.font = '11px Inter, sans-serif';
+            ctx.fillStyle = '#94A3B8';
+            ctx.font = '12px Inter, sans-serif';
             ctx.textAlign = 'right';
-            ctx.fillText(Math.round(maxVal - (maxVal / 4) * i), padding.left - 8, y + 4);
+            ctx.fillText(Math.round(maxVal - (maxVal / 4) * i), padding.left - 10, y + 4);
         }
 
         // Bars with animation
@@ -56,30 +56,27 @@ const Charts = {
             const color = d.color || this.colors[i % this.colors.length];
             
             // Bar shadow
-            ctx.fillStyle = 'rgba(0,0,0,0.1)';
+            ctx.fillStyle = 'rgba(0,0,0,0.2)';
             ctx.beginPath();
             ctx.roundRect(x + 2, y + 2, barWidth, barH, [4, 4, 0, 0]);
             ctx.fill();
 
-            // Bar fill
-            const gradient = ctx.createLinearGradient(x, y, x, y + barH);
-            gradient.addColorStop(0, color);
-            gradient.addColorStop(1, color + '99');
-            ctx.fillStyle = gradient;
+            // Bar
+            ctx.fillStyle = color;
             ctx.beginPath();
             ctx.roundRect(x, y, barWidth, barH, [4, 4, 0, 0]);
             ctx.fill();
 
             // Value on top
-            ctx.fillStyle = '#F1F5F9';
-            ctx.font = 'bold 11px Inter, sans-serif';
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'bold 13px Inter, sans-serif';
             ctx.textAlign = 'center';
-            ctx.fillText(d.value, x + barWidth / 2, y - 6);
+            ctx.fillText(d.value, x + barWidth / 2, y - 8);
 
             // Label
-            ctx.fillStyle = '#94A3B8';
-            ctx.font = '11px Inter, sans-serif';
-            ctx.fillText(Utils.truncate(d.label, 8), x + barWidth / 2, h - padding.bottom + 18);
+            ctx.fillStyle = '#CBD5E1';
+            ctx.font = '13px Inter, sans-serif';
+            ctx.fillText(Utils.truncate(d.label, 12), x + barWidth / 2, h - padding.bottom + 20);
         });
     },
 
@@ -90,23 +87,28 @@ const Charts = {
         const ctx = canvas.getContext('2d');
         const dpr = window.devicePixelRatio || 1;
 
-        const size = options.size || 220;
-        canvas.width = size * dpr;
-        canvas.height = size * dpr;
-        canvas.style.width = size + 'px';
-        canvas.style.height = size + 'px';
+        const rect = canvas.parentElement.getBoundingClientRect();
+        // Give donut chart more width for legend if needed
+        const cWidth = options.width || rect.width || 300;
+        const cHeight = options.height || 250;
+        canvas.width = cWidth * dpr;
+        canvas.height = cHeight * dpr;
+        canvas.style.width = cWidth + 'px';
+        canvas.style.height = cHeight + 'px';
         ctx.scale(dpr, dpr);
 
-        const cx = size / 2;
-        const cy = size / 2;
-        const radius = size / 2 - 10;
+        const cx = (cHeight) / 2; // Keep circle on left
+        const cy = cHeight / 2;
+        const radius = Math.min(cx, cy) - 20;
         const innerRadius = radius * 0.6;
-        const total = data.reduce((s, d) => s + d.value, 0);
+        const total = data.reduce((s, d) => s + (d.value || 0), 0);
 
         let startAngle = -Math.PI / 2;
 
         data.forEach((d, i) => {
-            const sliceAngle = (d.value / total) * Math.PI * 2;
+            const val = d.value || 0;
+            if (val === 0) return;
+            const sliceAngle = (val / total) * Math.PI * 2;
             const color = d.color || this.colors[i % this.colors.length];
 
             ctx.beginPath();
@@ -115,6 +117,22 @@ const Charts = {
             ctx.closePath();
             ctx.fillStyle = color;
             ctx.fill();
+
+            // Draw legend
+            const legendX = cx + radius + 30;
+            const legendY = cy - radius + (i * 24) + 12;
+            
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(legendX, legendY, 6, 0, Math.PI*2);
+            ctx.fill();
+
+            ctx.fillStyle = '#F8FAFC';
+            ctx.font = '13px Inter, sans-serif';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            const pct = Math.round((val / total) * 100);
+            ctx.fillText(`${d.label} (${pct}%)`, legendX + 15, legendY);
 
             startAngle += sliceAngle;
         });

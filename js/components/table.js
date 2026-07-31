@@ -112,9 +112,9 @@ const DataTable = {
                     });
                     if (actions) {
                         html += `<td><div class="table-actions">`;
-                        actions.forEach(act => {
+                        actions.forEach((act, idx) => {
                             if (act.condition && !act.condition(item)) return;
-                            html += `<button class="btn-icon ${act.class || ''}" data-action="${act.key}" data-id="${item.id}" title="${act.label}">
+                            html += `<button class="btn-icon ${act.class || ''}" data-action-idx="${idx}" data-id="${item.id}" title="${act.label}">
                                 <i data-lucide="${act.icon}"></i>
                             </button>`;
                         });
@@ -173,10 +173,11 @@ const DataTable = {
             // Filters
             if (filters) {
                 filters.forEach(f => {
-                    const select = document.getElementById(`${containerId}-filter-${f.key}`);
+                    const filterKey = f.field || f.key;
+                    const select = document.getElementById(`${containerId}-filter-${filterKey}`);
                     if (select) {
                         select.addEventListener('change', (e) => {
-                            filterValues[f.key] = e.target.value;
+                            filterValues[filterKey] = e.target.value;
                             currentPage = 1;
                             renderTable();
                         });
@@ -210,15 +211,15 @@ const DataTable = {
             });
 
             // Actions
-            container.querySelectorAll('[data-action]').forEach(btn => {
+            container.querySelectorAll('[data-action-idx]').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    const action = btn.dataset.action;
+                    const idx = btn.dataset.actionIdx;
                     const id = btn.dataset.id;
-                    const item = data.find(d => d.id === id);
-                    if (actions) {
-                        const act = actions.find(a => a.key === action);
-                        if (act && act.onClick) act.onClick(item);
+                    const item = data.find(d => String(d.id) === String(id));
+                    if (actions && actions[idx]) {
+                        const act = actions[idx];
+                        if (act.onClick) act.onClick(item);
                     }
                 });
             });

@@ -84,12 +84,13 @@ const AdminReports = {
         if (window.lucide) lucide.createIcons();
 
         setTimeout(() => {
-            const faculties = Store.getFaculties ? Store.getFaculties() : ['CNTT', 'Kinh tế', 'Ngoại ngữ'];
+            const facList = Store.getFaculties ? Store.getFaculties() : [];
+            const getFacName = (i, fallback) => facList[i] ? (facList[i].name || facList[i]) : fallback;
             
             const facultyData = [
-                { label: faculties[0] || 'CNTT', value: 45 },
-                { label: faculties[1] || 'Kinh tế', value: 30 },
-                { label: faculties[2] || 'Ngoại ngữ', value: 25 }
+                { label: getFacName(0, 'CNTT'), value: 45 },
+                { label: getFacName(1, 'Kinh tế'), value: 30 },
+                { label: getFacName(2, 'Ngoại ngữ'), value: 25 }
             ];
             Charts.donut('reportFacultyChart', facultyData);
 

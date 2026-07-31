@@ -36,18 +36,21 @@ const AdminSections = {
             },
             columns: [
                 { field: 'code', label: 'Mã LHP' },
-                { field: 'courseName', label: 'Tên môn học' },
+                { field: 'courseId', label: 'Tên môn học', render: (val) => {
+                    const c = Store.getCourseById(val);
+                    return c ? c.name : '-';
+                }},
                 { field: 'instructor', label: 'Giảng viên' },
                 { field: 'room', label: 'Phòng' },
                 { field: 'schedule', label: 'Lịch học' },
-                { field: 'enrolled', label: 'Sĩ số', render: (val, row) => {
+                { field: 'enrolledCount', label: 'Sĩ số', render: (val, row) => {
                     const percent = (val / row.maxStudents) * 100;
                     const color = percent >= 100 ? 'bg-red-500' : (percent >= 80 ? 'bg-yellow-500' : 'bg-green-500');
                     return `
                         <div class="flex flex-col gap-1 w-full max-w-[100px]">
-                            <div class="text-xs text-right">${val}/${row.maxStudents}</div>
+                            <div class="text-xs text-right">${val || 0}/${row.maxStudents}</div>
                             <div class="w-full bg-gray-200 rounded-full h-1.5">
-                                <div class="${color} h-1.5 rounded-full" style="width: ${Math.min(percent, 100)}%"></div>
+                                <div class="${color} h-1.5 rounded-full" style="width: ${Math.min(percent || 0, 100)}%"></div>
                             </div>
                         </div>
                     `;
