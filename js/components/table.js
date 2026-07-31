@@ -57,10 +57,11 @@ const DataTable = {
             // Filters
             if (filters) {
                 filters.forEach(f => {
-                    html += `<select id="${containerId}-filter-${f.key}" class="filter-select">`;
+                    const filterKey = f.field || f.key;
+                    html += `<select id="${containerId}-filter-${filterKey}" class="filter-select">`;
                     html += `<option value="">${f.label}</option>`;
                     f.options.forEach(opt => {
-                        const selected = filterValues[f.key] === opt.value ? 'selected' : '';
+                        const selected = filterValues[filterKey] === opt.value ? 'selected' : '';
                         html += `<option value="${opt.value}" ${selected}>${opt.label}</option>`;
                     });
                     html += `</select>`;
@@ -69,8 +70,9 @@ const DataTable = {
 
             // Add button
             if (addBtn) {
+                const btnLabel = addBtn.label || addBtn.text;
                 html += `<button class="btn btn-primary" id="${containerId}-add-btn">
-                    <i data-lucide="plus"></i> ${addBtn.text}
+                    <i data-lucide="plus"></i> ${btnLabel}
                 </button>`;
             }
 
@@ -87,9 +89,10 @@ const DataTable = {
                 html += `<div style="overflow-x:auto;"><table class="data-table">`;
                 html += `<thead><tr>`;
                 columns.forEach(col => {
-                    const isSorted = sortField === col.key;
+                    const colKey = col.field || col.key;
+                    const isSorted = sortField === colKey;
                     const icon = isSorted ? (sortDir === 'asc' ? 'arrow-up' : 'arrow-down') : 'arrow-up-down';
-                    html += `<th class="${isSorted ? 'sorted' : ''}" data-sort="${col.key}" ${col.width ? `style="width:${col.width}"` : ''}>
+                    html += `<th class="${isSorted ? 'sorted' : ''}" data-sort="${colKey}" ${col.width ? `style="width:${col.width}"` : ''}>
                         ${col.label}
                         ${col.sortable !== false ? `<span class="sort-icon"><i data-lucide="${icon}" style="width:12px;height:12px;"></i></span>` : ''}
                     </th>`;
@@ -101,7 +104,8 @@ const DataTable = {
                 paginated.data.forEach(item => {
                     html += `<tr data-id="${item.id}" ${onRowClick ? 'style="cursor:pointer;"' : ''}>`;
                     columns.forEach(col => {
-                        let value = item[col.key];
+                        const colKey = col.field || col.key;
+                        let value = item[colKey];
                         if (col.render) value = col.render(item);
                         else if (value === null || value === undefined) value = '—';
                         html += `<td>${value}</td>`;

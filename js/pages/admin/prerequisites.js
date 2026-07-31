@@ -29,8 +29,14 @@ const AdminPrerequisites = {
                 onClick: () => this.showAddModal()
             },
             columns: [
-                { field: 'courseCode', label: 'Môn học', render: (val, row) => `${row.courseCode} - ${row.courseName}` },
-                { field: 'prerequisiteCode', label: 'Môn tiên quyết', render: (val, row) => `${row.prerequisiteCode} - ${row.prerequisiteName}` },
+                { field: 'courseId', label: 'Môn học', render: (val, row) => {
+                    const c = Store.getCourseById(row.courseId);
+                    return c ? `${c.code} - ${c.name}` : '-';
+                }},
+                { field: 'prerequisiteCourseId', label: 'Môn tiên quyết', render: (val, row) => {
+                    const c = Store.getCourseById(row.prerequisiteCourseId);
+                    return c ? `${c.code} - ${c.name}` : '-';
+                }},
                 { field: 'type', label: 'Loại', render: val => val === 'mandatory' ? '<span class="badge badge-error">Bắt buộc</span>' : '<span class="badge badge-info">Khuyến nghị</span>' }
             ],
             actions: [

@@ -47,19 +47,19 @@ const AdminReports = {
             <div class="grid grid-cols-4 gap-4 mb-6">
                 <div class="stat-card card p-4">
                     <h3 class="text-gray-500 text-sm">Tổng sinh viên</h3>
-                    <div class="text-2xl font-bold mt-2">${data.totalStudents}</div>
+                    <div class="text-2xl font-bold mt-2">${Store.getStudents().length}</div>
                 </div>
                 <div class="stat-card card p-4">
                     <h3 class="text-gray-500 text-sm">Môn học đang mở</h3>
-                    <div class="text-2xl font-bold mt-2">${data.activeCourses}</div>
+                    <div class="text-2xl font-bold mt-2">${Store.getCourses().length}</div>
                 </div>
                 <div class="stat-card card p-4">
                     <h3 class="text-gray-500 text-sm">Chương trình đào tạo</h3>
-                    <div class="text-2xl font-bold mt-2">${data.curricula}</div>
+                    <div class="text-2xl font-bold mt-2">${Store.getCurricula().length}</div>
                 </div>
                 <div class="stat-card card p-4">
                     <h3 class="text-gray-500 text-sm">Lớp học phần mở</h3>
-                    <div class="text-2xl font-bold mt-2">${data.openSections}</div>
+                    <div class="text-2xl font-bold mt-2">${Store.getSections().length}</div>
                 </div>
             </div>
 
