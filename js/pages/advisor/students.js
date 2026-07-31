@@ -74,7 +74,7 @@ const AdvisorStudents = {
         ];
         
         DataTable.render({
-            container: 'students-table-container',
+            containerId: 'students-table-container',
             data: data,
             columns: columns,
             onRowClick: (row) => this.viewStudent(row.id)

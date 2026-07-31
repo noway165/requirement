@@ -59,8 +59,8 @@ const AdvisorDashboard = {
             
             <div class="dashboard-grid gap-4" style="display: grid; grid-template-columns: 1fr 1fr;">
                 <div class="card p-4">
-                    <h3 class="mb-4 font-bold">Phân bổ trạng thái sinh viên</h3>
-                    <div id="student-status-chart" class="chart-container" style="height: 300px;"></div>
+                    <h3 class="mb-4 font-bold">Phân bố trạng thái sinh viên</h3>
+                    <div style="height: 300px; display: flex; justify-content: center; align-items: center;"><canvas id="student-status-chart"></canvas></div>
                 </div>
                 <div class="card p-4">
                     <h3 class="mb-4 font-bold">Nhật ký tư vấn gần đây</h3>

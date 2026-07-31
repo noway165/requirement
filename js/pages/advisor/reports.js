@@ -70,11 +70,11 @@ const AdvisorReports = {
             <div class="grid gap-4 mb-4" style="display: grid; grid-template-columns: 1fr 1fr;">
                 <div class="card p-4">
                     <h3 class="font-bold mb-4">Phân bố trạng thái sinh viên</h3>
-                    <div id="status-distribution-chart" style="height: 300px;"></div>
+                    <div style="height: 300px; display: flex; justify-content: center; align-items: center;"><canvas id="status-distribution-chart"></canvas></div>
                 </div>
                 <div class="card p-4">
                     <h3 class="font-bold mb-4">Top 5 môn nợ/rớt nhiều nhất</h3>
-                    <div id="course-debt-chart" style="height: 300px;"></div>
+                    <div style="height: 300px; display: flex; justify-content: center; align-items: center;"><canvas id="course-debt-chart"></canvas></div>
                 </div>
             </div>
         `;
@@ -92,14 +92,13 @@ const AdvisorReports = {
                     ]);
                 }
                 if (typeof Charts.bar === 'function') {
-                    Charts.bar('course-debt-chart', {
-                        labels: ['CTDL', 'Cơ sở dữ liệu', 'Toán rời rạc', 'Hệ điều hành', 'XSTK'],
-                        datasets: [{
-                            label: 'Số sinh viên rớt',
-                            data: [12, 9, 8, 5, 4],
-                            backgroundColor: '#ef4444'
-                        }]
-                    });
+                    Charts.bar('course-debt-chart', [
+                        { label: 'CTDL', value: 12, color: '#ef4444' },
+                        { label: 'CSDL', value: 9, color: '#ef4444' },
+                        { label: 'Toán RR', value: 8, color: '#ef4444' },
+                        { label: 'HĐH', value: 5, color: '#ef4444' },
+                        { label: 'XSTK', value: 4, color: '#ef4444' }
+                    ]);
                 }
             }, 100);
         }
