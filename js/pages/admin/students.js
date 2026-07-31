@@ -158,7 +158,8 @@ const AdminStudents = {
                 this.renderTable();
             }
         });
-    }
+    },
+    
     showAssignAdvisorModal: function(id) {
         const student = Store.getStudentById(id);
         const advisors = Store.getAdvisors ? Store.getAdvisors() : [];

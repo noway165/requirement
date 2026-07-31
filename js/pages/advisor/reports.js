@@ -117,7 +117,7 @@ const AdvisorReports = {
     },
     
     exportPDF: function() {
-        if (window.Toast) Toast.success('Đã xuất PDF');
+        if (typeof Toast !== 'undefined') Toast.success('Đã xuất PDF');
     },
     
     exportExcel: function() {
@@ -125,9 +125,9 @@ const AdvisorReports = {
         const myStudents = Store.getStudentsByAdvisor ? Store.getStudentsByAdvisor(user.id) : [];
         if (Utils.exportToCSV) {
             Utils.exportToCSV(myStudents, 'ThongKe_Lop.csv');
-            if (window.Toast) Toast.success('Đã xuất Excel');
+            if (typeof Toast !== 'undefined') Toast.success('Đã xuất Excel');
         } else {
-            if (window.Toast) Toast.error('Tính năng xuất CSV chưa sẵn sàng');
+            if (typeof Toast !== 'undefined') Toast.error('Tính năng xuất CSV chưa sẵn sàng');
         }
     }
 };

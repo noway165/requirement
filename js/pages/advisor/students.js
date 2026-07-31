@@ -158,7 +158,7 @@ const AdvisorStudents = {
             </ul>
         `;
         
-        if (window.Modal) {
+        if (typeof Modal !== 'undefined') {
             Modal.show({
                 title: 'Chi tiết Sinh viên',
                 content: html,

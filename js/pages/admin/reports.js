@@ -119,7 +119,7 @@ const AdminReports = {
     },
 
     exportExcel: function() {
-        if(window.Utils && Utils.exportToCSV) {
+        if (typeof Utils !== 'undefined' && typeof Utils.exportToCSV === 'function') {
             Utils.exportToCSV('Báo cáo thống kê', [['Mục', 'Giá trị'], ['Sinh viên', (Store.getStudents ? Store.getStudents().length : 0)], ['Môn học', (Store.getCourses ? Store.getCourses().length : 0)]]);
             Toast.success('Thành công', 'Đã tải xuống báo cáo Excel');
         } else {

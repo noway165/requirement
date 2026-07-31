@@ -93,14 +93,14 @@ const AdvisorApproval = {
     },
     
     approve: function(planId) {
-        if (window.Modal) {
+        if (typeof Modal !== 'undefined') {
             Modal.confirm({
                 title: 'Xác nhận duyệt',
                 message: 'Bạn có chắc chắn muốn duyệt kế hoạch học tập này?',
                 onConfirm: async () => {
                     if (Store.updateLearningPath) await Store.updateLearningPath(planId, { approvalStatus: 'approved' });
                     if (Store.addAdvisoryLog) await Store.addAdvisoryLog({ planId, action: 'approved', date: new Date() });
-                    if (window.Toast) Toast.success('Đã duyệt kế hoạch học tập');
+                    if (typeof Toast !== 'undefined') Toast.success('Đã duyệt kế hoạch học tập');
                     this.render();
                 }
             });
@@ -108,7 +108,7 @@ const AdvisorApproval = {
     },
     
     reject: function(planId) {
-        if (window.Modal) {
+        if (typeof Modal !== 'undefined') {
             Modal.form({
                 title: 'Từ chối kế hoạch học tập',
                 fields: [
@@ -116,12 +116,12 @@ const AdvisorApproval = {
                 ],
                 onSubmit: async (data) => {
                     if (!data.reason.trim()) {
-                        if (window.Toast) Toast.error('Vui lòng nhập lý do từ chối');
+                        if (typeof Toast !== 'undefined') Toast.error('Vui lòng nhập lý do từ chối');
                         return false; // Prevent close
                     }
                     if (Store.updateLearningPath) await Store.updateLearningPath(planId, { approvalStatus: 'rejected', advisorNote: data.reason });
                     if (Store.addAdvisoryLog) await Store.addAdvisoryLog({ planId, action: 'rejected', note: data.reason, date: new Date() });
-                    if (window.Toast) Toast.success('Đã từ chối kế hoạch học tập');
+                    if (typeof Toast !== 'undefined') Toast.success('Đã từ chối kế hoạch học tập');
                     this.render();
                     return true;
                 }

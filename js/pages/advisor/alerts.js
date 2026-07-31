@@ -124,15 +124,15 @@ const AdvisorAlerts = {
         const content = document.getElementById('alert-content').value.trim();
         
         if (selected.length === 0) {
-            if (window.Toast) Toast.warning('Vui lòng chọn ít nhất 1 sinh viên');
+            if (typeof Toast !== 'undefined') Toast.warning('Vui lòng chọn ít nhất 1 sinh viên');
             return;
         }
         if (!title || !content) {
-            if (window.Toast) Toast.warning('Vui lòng nhập tiêu đề và nội dung');
+            if (typeof Toast !== 'undefined') Toast.warning('Vui lòng nhập tiêu đề và nội dung');
             return;
         }
         
-        if (window.Modal) {
+        if (typeof Modal !== 'undefined') {
             Modal.confirm({
                 title: 'Xác nhận gửi',
                 message: `Bạn sẽ gửi thông báo này đến ${selected.length} sinh viên?`,
@@ -150,7 +150,7 @@ const AdvisorAlerts = {
                             });
                         }
                     }
-                    if (window.Toast) Toast.success('Đã gửi thông báo thành công');
+                    if (typeof Toast !== 'undefined') Toast.success('Đã gửi thông báo thành công');
                     this.render(); // refresh
                 }
             });
