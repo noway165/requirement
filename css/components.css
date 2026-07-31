@@ -1095,3 +1095,9 @@
     color: var(--text-secondary);
     font-weight: var(--font-medium);
 }
+
+select option {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+

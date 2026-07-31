@@ -110,7 +110,11 @@ window.StudentLearningPath = {
         const html = `
             <div class="mb-6">
                 <h1 class="text-2xl font-bold mb-2">Lộ trình học tập</h1>
-                <p class="text-gray-600">Quản lý và theo dõi tiến độ các môn học trong chương trình đào tạo của bạn.</p>
+                <p class="text-gray-600 mb-4">Quản lý và theo dõi tiến độ các môn học trong chương trình đào tạo của bạn.</p>
+                <div class="bg-blue-50 text-blue-700 p-3 rounded-lg border border-blue-100 flex items-center gap-2 text-sm">
+                    <i data-lucide="info" class="w-4 h-4"></i>
+                    Sinh viên tự cập nhật điểm số thực tế của mình bằng cách nhấp vào từng môn học bên dưới.
+                </div>
             </div>
             
             <div class="card p-6 mb-8">

@@ -34,13 +34,14 @@ const AdvisorReports = {
                 </div>
             </div>
             
-            <div class="card p-3 mb-4 bg-gray-50 flex gap-4 items-center">
-                <div class="font-bold">Lọc:</div>
-                <select class="form-select w-48">
+            <div class="card p-3 mb-4 flex gap-4 items-center">
+                <div class="font-bold text-slate-300">Lọc:</div>
+                <select class="w-48 border border-slate-700 bg-slate-800 text-slate-200 rounded-md p-2 focus:border-primary outline-none">
                     <option>Học kỳ 1 2023-2024</option>
                     <option>Học kỳ 2 2023-2024</option>
+                    <option>Học kỳ hè 2023-2024</option>
                 </select>
-                <select class="form-select w-48">
+                <select class="w-48 border border-slate-700 bg-slate-800 text-slate-200 rounded-md p-2 focus:border-primary outline-none">
                     <option value="overview">Tổng quan</option>
                     <option value="gpa">Phân tích GPA</option>
                     <option value="debt">Nợ môn</option>

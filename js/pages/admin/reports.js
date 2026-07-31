@@ -19,21 +19,22 @@ const AdminReports = {
 
             <div class="card mb-6 p-4">
                 <div class="flex gap-4 items-end">
-                    <div class="flex-1 max-w-xs">
-                        <label class="block text-sm font-medium mb-1">Năm học</label>
-                        <select class="w-full border rounded-md p-2">
+                    <div class="flex-1 max-w-xs form-group">
+                        <label class="block text-sm font-medium mb-1 text-slate-300">Năm học</label>
+                        <select class="w-full border border-slate-700 bg-slate-800 text-slate-200 rounded-md p-2 focus:border-primary focus:ring-1 focus:ring-primary outline-none">
                             <option>2023-2024</option>
                             <option>2024-2025</option>
                         </select>
                     </div>
-                    <div class="flex-1 max-w-xs">
-                        <label class="block text-sm font-medium mb-1">Học kỳ</label>
-                        <select class="w-full border rounded-md p-2">
+                    <div class="flex-1 max-w-xs form-group">
+                        <label class="block text-sm font-medium mb-1 text-slate-300">Học kỳ</label>
+                        <select class="w-full border border-slate-700 bg-slate-800 text-slate-200 rounded-md p-2 focus:border-primary focus:ring-1 focus:ring-primary outline-none">
                             <option>Học kỳ 1</option>
                             <option>Học kỳ 2</option>
+                            <option>Học kỳ hè</option>
                         </select>
                     </div>
-                    <button class="btn btn-primary">Lọc</button>
+                    <button class="btn btn-primary h-[42px] px-6">Lọc</button>
                 </div>
             </div>
 

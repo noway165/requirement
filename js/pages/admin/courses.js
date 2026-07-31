@@ -12,7 +12,7 @@ const AdminCourses = {
     
     renderTable: function() {
         const courses = Store.getCourses();
-        const faculties = Store.getFaculties ? Store.getFaculties().map(f => ({value: f, label: f})) : [];
+        const faculties = Store.getFaculties ? Store.getFaculties().map(f => ({value: f.name || f, label: f.name || f})) : [];
         
         DataTable.render({
             containerId: 'courses-table-container',
@@ -61,7 +61,7 @@ const AdminCourses = {
                 { name: 'code', label: 'Mã môn', type: 'text', required: true },
                 { name: 'name', label: 'Tên môn học', type: 'text', required: true },
                 { name: 'credits', label: 'Số tín chỉ', type: 'number', required: true },
-                { name: 'faculty', label: 'Khoa', type: 'select', options: Store.getFaculties ? Store.getFaculties().map(f => ({value: f, label: f})) : [], required: true },
+                { name: 'faculty', label: 'Khoa', type: 'select', options: Store.getFaculties ? Store.getFaculties().map(f => ({value: f.name || f, label: f.name || f})) : [], required: true },
                 { name: 'type', label: 'Loại', type: 'select', options: [
                     {value: 'mandatory', label: 'Bắt buộc'},
                     {value: 'elective', label: 'Tự chọn'}
@@ -94,7 +94,7 @@ const AdminCourses = {
                 { name: 'code', label: 'Mã môn', type: 'text', value: course.code, required: true },
                 { name: 'name', label: 'Tên môn học', type: 'text', value: course.name, required: true },
                 { name: 'credits', label: 'Số tín chỉ', type: 'number', value: course.credits, required: true },
-                { name: 'faculty', label: 'Khoa', type: 'select', value: course.faculty, options: Store.getFaculties ? Store.getFaculties().map(f => ({value: f, label: f})) : [], required: true },
+                { name: 'faculty', label: 'Khoa', type: 'select', value: course.faculty, options: Store.getFaculties ? Store.getFaculties().map(f => ({value: f.name || f, label: f.name || f})) : [], required: true },
                 { name: 'type', label: 'Loại', type: 'select', value: course.type, options: [
                     {value: 'mandatory', label: 'Bắt buộc'},
                     {value: 'elective', label: 'Tự chọn'}
@@ -142,3 +142,4 @@ const AdminCourses = {
         });
     }
 };
+

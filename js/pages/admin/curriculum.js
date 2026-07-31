@@ -12,7 +12,7 @@ const AdminCurriculum = {
     
     renderTable: function() {
         const curricula = Store.getCurricula();
-        const faculties = Store.getFaculties ? Store.getFaculties().map(f => ({value: f, label: f})) : [];
+        const faculties = Store.getFaculties ? Store.getFaculties().map(f => ({value: f.name || f, label: f.name || f})) : [];
         
         DataTable.render({
             containerId: 'curriculum-table-container',
@@ -60,7 +60,7 @@ const AdminCurriculum = {
             fields: [
                 { name: 'code', label: 'Mã CTĐT', type: 'text', required: true },
                 { name: 'name', label: 'Tên chương trình', type: 'text', required: true },
-                { name: 'faculty', label: 'Khoa', type: 'select', options: Store.getFaculties ? Store.getFaculties().map(f => ({value: f, label: f})) : [], required: true },
+                { name: 'faculty', label: 'Khoa', type: 'select', options: Store.getFaculties ? Store.getFaculties().map(f => ({value: f.name || f, label: f.name || f})) : [], required: true },
                 { name: 'mandatoryCredits', label: 'Tín chỉ bắt buộc', type: 'number', required: true },
                 { name: 'electiveCredits', label: 'Tín chỉ tự chọn', type: 'number', required: true }
             ],
@@ -129,3 +129,4 @@ const AdminCurriculum = {
         });
     }
 };
+

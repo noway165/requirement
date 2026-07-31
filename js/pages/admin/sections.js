@@ -22,6 +22,7 @@ const AdminSections = {
                 { field: 'semester', label: 'Học kỳ', options: [
                     {value: 'HK1_2023', label: 'HK1 2023-2024'},
                     {value: 'HK2_2023', label: 'HK2 2023-2024'},
+                    {value: 'HKH_2023', label: 'HK Hè 2023-2024'},
                     {value: 'HK1_2024', label: 'HK1 2024-2025'}
                 ]},
                 { field: 'status', label: 'Trạng thái', options: [
@@ -89,7 +90,8 @@ const AdminSections = {
                 { name: 'semester', label: 'Học kỳ', type: 'select', options: [
                     {value: 'HK1_2023', label: 'HK1 2023-2024'},
                     {value: 'HK2_2023', label: 'HK2 2023-2024'},
-                    {value: 'HK1_2024', label: 'HK1 2024-2025'}
+                    {value: 'HK1_2024', label: 'HK1 2024-2025'},
+                    {value: 'HKH_2024', label: 'HK Hè 2024-2025'}
                 ], required: true }
             ],
             onSubmit: async (data) => {

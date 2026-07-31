@@ -12,7 +12,7 @@ const AdminStudents = {
     
     renderTable: function() {
         const students = Store.getStudents();
-        const faculties = Store.getFaculties ? Store.getFaculties().map(f => ({value: f, label: f})) : [];
+        const faculties = Store.getFaculties ? Store.getFaculties().map(f => ({value: f.name || f, label: f.name || f})) : [];
         
         DataTable.render({
             containerId: 'students-table-container',
@@ -73,7 +73,7 @@ const AdminStudents = {
                 { name: 'mssv', label: 'MSSV', type: 'text', required: true },
                 { name: 'name', label: 'Họ tên', type: 'text', required: true },
                 { name: 'email', label: 'Email', type: 'email', required: true },
-                { name: 'faculty', label: 'Khoa', type: 'select', options: Store.getFaculties ? Store.getFaculties().map(f => ({value: f, label: f})) : [], required: true },
+                { name: 'faculty', label: 'Khoa', type: 'select', options: Store.getFaculties ? Store.getFaculties().map(f => ({value: f.name || f, label: f.name || f})) : [], required: true },
                 { name: 'gpa', label: 'GPA', type: 'number', required: true }
             ],
             onSubmit: async (data) => {
@@ -99,7 +99,7 @@ const AdminStudents = {
                 { name: 'mssv', label: 'MSSV', type: 'text', value: student.mssv, required: true },
                 { name: 'name', label: 'Họ tên', type: 'text', value: student.name, required: true },
                 { name: 'email', label: 'Email', type: 'email', value: student.email, required: true },
-                { name: 'faculty', label: 'Khoa', type: 'select', value: student.faculty, options: Store.getFaculties ? Store.getFaculties().map(f => ({value: f, label: f})) : [], required: true },
+                { name: 'faculty', label: 'Khoa', type: 'select', value: student.faculty, options: Store.getFaculties ? Store.getFaculties().map(f => ({value: f.name || f, label: f.name || f})) : [], required: true },
                 { name: 'gpa', label: 'GPA', type: 'number', value: student.gpa, required: true }
             ],
             onSubmit: async (data) => {
@@ -155,3 +155,4 @@ const AdminStudents = {
         });
     }
 };
+
