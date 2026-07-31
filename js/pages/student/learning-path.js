@@ -108,13 +108,18 @@ window.StudentLearningPath = {
         const progressPercent = Math.round((completedCourses / totalCourses) * 100) || 0;
 
         const html = `
-            <div class="mb-6">
-                <h1 class="text-2xl font-bold mb-2">Lộ trình học tập</h1>
-                <p class="text-gray-600 mb-4">Quản lý và theo dõi tiến độ các môn học trong chương trình đào tạo của bạn.</p>
-                <div class="bg-blue-50 text-blue-700 p-3 rounded-lg border border-blue-100 flex items-center gap-2 text-sm">
-                    <i data-lucide="info" class="w-4 h-4"></i>
-                    Sinh viên tự cập nhật điểm số thực tế của mình bằng cách nhấp vào từng môn học bên dưới.
+            <div class="mb-6 flex justify-between items-start">
+                <div>
+                    <h1 class="text-2xl font-bold mb-2">Lộ trình học tập</h1>
+                    <p class="text-gray-600 mb-4">Quản lý và theo dõi tiến độ các môn học trong chương trình đào tạo của bạn.</p>
+                    <div class="bg-blue-50 text-blue-700 p-3 rounded-lg border border-blue-100 flex items-center gap-2 text-sm">
+                        <i data-lucide="info" class="w-4 h-4"></i>
+                        Sinh viên tự cập nhật điểm số thực tế của mình bằng cách nhấp vào từng môn học bên dưới.
+                    </div>
                 </div>
+                <button class="btn btn-primary flex items-center gap-2" onclick="StudentLearningPath.openSendModal()">
+                    <i data-lucide="send" class="w-4 h-4"></i> Gửi Cố vấn duyệt
+                </button>
             </div>
             
             <div class="card p-6 mb-8">
@@ -195,5 +200,63 @@ window.StudentLearningPath = {
         Modal.close();
         Toast.show('Cập nhật điểm thành công!', 'success');
         this.render();
+    },
+    
+    openSendModal: function() {
+        const html = `
+            <form id="sendPlanForm" onsubmit="StudentLearningPath.sendPlan(event)">
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2">Học kỳ dự kiến</label>
+                    <select id="planSemester" class="w-full px-3 py-2 border rounded" required>
+                        <option value="HK1 2026-2027">Học kỳ 1 2026-2027</option>
+                        <option value="HK2 2026-2027">Học kỳ 2 2026-2027</option>
+                        <option value="HK hè 2026-2027">Học kỳ hè 2026-2027</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2">Danh sách môn đăng ký (Nhập mã môn cách nhau bằng dấu phẩy)</label>
+                    <input type="text" id="planCourses" class="w-full px-3 py-2 border rounded" placeholder="VD: CS101, CS201" required>
+                </div>
+                <div class="flex justify-end gap-2">
+                    <button type="button" class="btn btn-secondary" onclick="Modal.close()">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Gửi duyệt</button>
+                </div>
+            </form>
+        `;
+        Modal.show('Gửi Lộ trình học tập', html);
+    },
+    
+    sendPlan: async function(event) {
+        event.preventDefault();
+        const semester = document.getElementById('planSemester').value;
+        const coursesInput = document.getElementById('planCourses').value;
+        
+        const courses = coursesInput.split(',').map(c => c.trim().toUpperCase()).filter(c => c);
+        
+        if (courses.length === 0) {
+            Toast.show('Vui lòng nhập ít nhất 1 mã môn học', 'error');
+            return;
+        }
+        
+        const user = Store.getCurrentUser();
+        const students = Store.getStudents() || [];
+        const student = students.find(s => s.email === user.email);
+        
+        if (Store.addLearningPath) {
+            await Store.addLearningPath({
+                studentId: student.id,
+                semester: semester,
+                selectedCourses: courses,
+                suggestedCourses: courses,
+                totalCredits: courses.length * 3, // Mock calculation
+                createdAt: new Date().toISOString().split('T')[0],
+                advisorNote: '',
+                approvalStatus: 'pending'
+            });
+            Toast.success('Thành công', 'Đã gửi kế hoạch học tập cho cố vấn!');
+            Modal.close();
+        } else {
+            Toast.error('Lỗi', 'Tính năng chưa sẵn sàng');
+        }
     }
 };

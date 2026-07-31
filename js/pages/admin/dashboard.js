@@ -81,22 +81,26 @@ const AdminDashboard = {
             const facList = Store.getFaculties ? Store.getFaculties() : [];
             const getFacName = (i, fallback) => facList[i] ? (facList[i].name || facList[i]) : fallback;
             
-            // Faculty chart data
-            const facultyData = [
-                { label: getFacName(0, 'CNTT'), value: 45 },
-                { label: getFacName(1, 'Kinh tế'), value: 30 },
-                { label: getFacName(2, 'Ngoại ngữ'), value: 25 }
-            ];
+            const students = Store.getStudents ? Store.getStudents() : [];
+            const facStats = {};
+            students.forEach(s => {
+                const fac = s.faculty || 'Khác';
+                facStats[fac] = (facStats[fac] || 0) + 1;
+            });
+            const facultyData = Object.keys(facStats).map(f => ({ label: f, value: facStats[f] }));
             Charts.donut('facultyChart', facultyData);
 
             // GPA chart data
-            const gpaData = [
-                { label: '< 2.0', value: 5 },
-                { label: '2.0-2.5', value: 15 },
-                { label: '2.5-3.2', value: 50 },
-                { label: '3.2-3.6', value: 20 },
-                { label: '> 3.6', value: 10 }
-            ];
+            const gpaStats = { '< 2.0': 0, '2.0-2.5': 0, '2.5-3.2': 0, '3.2-3.6': 0, '> 3.6': 0 };
+            students.forEach(s => {
+                const gpa = s.gpa || 0;
+                if (gpa < 2.0) gpaStats['< 2.0']++;
+                else if (gpa <= 2.5) gpaStats['2.0-2.5']++;
+                else if (gpa <= 3.2) gpaStats['2.5-3.2']++;
+                else if (gpa <= 3.6) gpaStats['3.2-3.6']++;
+                else gpaStats['> 3.6']++;
+            });
+            const gpaData = Object.keys(gpaStats).map(k => ({ label: k, value: gpaStats[k] }));
             Charts.bar('gpaChart', gpaData);
         }, 100);
     }

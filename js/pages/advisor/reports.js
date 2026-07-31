@@ -92,13 +92,25 @@ const AdvisorReports = {
                     ]);
                 }
                 if (typeof Charts.bar === 'function') {
-                    Charts.bar('course-debt-chart', [
-                        { label: 'CTDL', value: 12, color: '#ef4444' },
-                        { label: 'CSDL', value: 9, color: '#ef4444' },
-                        { label: 'Toán RR', value: 8, color: '#ef4444' },
-                        { label: 'HĐH', value: 5, color: '#ef4444' },
-                        { label: 'XSTK', value: 4, color: '#ef4444' }
-                    ]);
+                    const debtStats = {};
+                    myStudents.forEach(st => {
+                        const grades = Store.getGradesByStudent ? Store.getGradesByStudent(st.id) : [];
+                        grades.forEach(g => {
+                            if (g.grade < 4.0 || g.status === 'failed') {
+                                debtStats[g.courseName || g.courseId] = (debtStats[g.courseName || g.courseId] || 0) + 1;
+                            }
+                        });
+                    });
+                    
+                    const debtData = Object.keys(debtStats)
+                        .map(k => ({ label: k.substring(0, 15) + (k.length > 15 ? '...' : ''), value: debtStats[k], color: '#ef4444' }))
+                        .sort((a,b) => b.value - a.value)
+                        .slice(0, 5);
+                        
+                    if (debtData.length === 0) {
+                        debtData.push({ label: 'Không có nợ môn', value: 0, color: '#10b981' });
+                    }
+                    Charts.bar('course-debt-chart', debtData);
                 }
             }, 100);
         }

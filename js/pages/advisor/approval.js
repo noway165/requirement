@@ -25,25 +25,27 @@ const AdvisorApproval = {
         
         pendingApprovals.forEach(plan => {
             const student = Store.getStudentById ? Store.getStudentById(plan.studentId) : { name: 'Unknown', mssv: 'N/A' };
-            const courses = plan.courses || [];
+            const courses = plan.selectedCourses || plan.suggestedCourses || [];
             let totalCredits = 0;
             let hasUnmetPrereq = false;
             
-            const coursesHtml = courses.map(c => {
-                const course = Store.getCourseById ? Store.getCourseById(c.id) : { name: c.id, credits: 3 };
+            const coursesHtml = courses.map(courseId => {
+                const course = Store.getCourseById ? Store.getCourseById(courseId) : null;
+                if (!course) return '';
                 totalCredits += course.credits || 3;
                 
                 // Assuming plan has prereq status or we check it
-                const prereqMet = Store.checkPrerequisitesMet ? Store.checkPrerequisitesMet(student.id, c.id) : true;
-                if (!prereqMet) hasUnmetPrereq = true;
+                const prereqMet = Store.checkPrerequisitesMet ? Store.checkPrerequisitesMet(student.id, courseId) : [];
+                const allMet = prereqMet.every(p => p.met);
+                if (!allMet) hasUnmetPrereq = true;
                 
                 return `
                     <div class="flex justify-between items-center py-2 border-b last:border-0 text-sm">
                         <div>
-                            <strong>${c.id}</strong> - ${course.name} (${course.credits || 3} TC)
+                            <strong>${course.code}</strong> - ${course.name} (${course.credits || 3} TC)
                         </div>
                         <div>
-                            ${prereqMet 
+                            ${allMet 
                                 ? '<span class="badge bg-green-100 text-green-700">Đủ điều kiện</span>' 
                                 : '<span class="badge bg-red-100 text-red-700">Thiếu tiên quyết</span>'}
                         </div>
