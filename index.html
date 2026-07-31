@@ -118,17 +118,17 @@
                             Tài khoản demo
                         </p>
                         <div class="demo-cards">
-                            <button type="button" class="demo-card" data-email="admin@vlu.edu.vn" data-password="admin123">
+                            <button type="button" class="demo-card" data-email="admin@vlu.edu.vn" data-password="admin123" onclick="document.getElementById('login-email').value=this.dataset.email; document.getElementById('login-password').value=this.dataset.password; document.querySelectorAll('.demo-card').forEach(c=>c.style.borderColor=''); this.style.borderColor='var(--primary)';">
                                 <i data-lucide="shield-check"></i>
                                 <span class="demo-role">Phòng Đào tạo</span>
                                 <span class="demo-email">admin@vlu.edu.vn</span>
                             </button>
-                            <button type="button" class="demo-card" data-email="advisor@vlu.edu.vn" data-password="advisor123">
+                            <button type="button" class="demo-card" data-email="advisor@vlu.edu.vn" data-password="advisor123" onclick="document.getElementById('login-email').value=this.dataset.email; document.getElementById('login-password').value=this.dataset.password; document.querySelectorAll('.demo-card').forEach(c=>c.style.borderColor=''); this.style.borderColor='var(--primary)';">
                                 <i data-lucide="user-check"></i>
                                 <span class="demo-role">Cố vấn Học tập</span>
                                 <span class="demo-email">advisor@vlu.edu.vn</span>
                             </button>
-                            <button type="button" class="demo-card" data-email="student@vlu.edu.vn" data-password="student123">
+                            <button type="button" class="demo-card" data-email="student@vlu.edu.vn" data-password="student123" onclick="document.getElementById('login-email').value=this.dataset.email; document.getElementById('login-password').value=this.dataset.password; document.querySelectorAll('.demo-card').forEach(c=>c.style.borderColor=''); this.style.borderColor='var(--primary)';">
                                 <i data-lucide="graduation-cap"></i>
                                 <span class="demo-role">Sinh viên</span>
                                 <span class="demo-email">student@vlu.edu.vn</span>
