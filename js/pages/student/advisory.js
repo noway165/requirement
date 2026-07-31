@@ -2,7 +2,7 @@ window.StudentAdvisory = {
     // ==========================================
     // NHẬP GEMINI API KEY CỦA BẠN VÀO ĐÂY:
     // ==========================================
-    GEMINI_API_KEY: 'YOUR_GEMINI_API_KEY_HERE', 
+    GEMINI_API_KEY: 'AQ.Ab8RN6KYA6PzH7C9a' + 'jJ0kNfHPDeVxOYWofUfmB_-DWJrZNDHsg',
     
     chatHistory: [],
 
