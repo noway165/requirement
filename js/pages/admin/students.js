@@ -185,7 +185,7 @@ const AdminStudents = {
                 </div>
             </form>
         `;
-        Modal.show('Phân công Cố vấn học tập', html);
+        Modal.show({ title: 'Phân công Cố vấn học tập', content: html });
     },
     
     saveAdvisor: async function(e, id) {

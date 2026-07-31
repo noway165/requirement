@@ -175,7 +175,7 @@ window.StudentLearningPath = {
                 </div>
             </form>
         `;
-        Modal.show('Cập nhật điểm', html);
+        Modal.show({ title: 'Cập nhật điểm', content: html });
     },
     
     saveGrade: async function(event, courseId) {
@@ -223,7 +223,7 @@ window.StudentLearningPath = {
                 </div>
             </form>
         `;
-        Modal.show('Gửi Lộ trình học tập', html);
+        Modal.show({ title: 'Gửi Lộ trình học tập', content: html });
     },
     
     sendPlan: async function(event) {
