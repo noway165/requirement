@@ -1103,5 +1103,9 @@ select option {
 }
 
 
-input, select, textarea { color: var(--text-primary); }
+input, select, textarea { 
+    color: var(--text-primary); 
+    background-color: var(--bg-tertiary);
+    border-color: var(--border-primary);
+}
 
