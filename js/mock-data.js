@@ -10,10 +10,10 @@ const MOCK_DATA = {
 
     // ── Users & Auth ──
     users: [
-        { id: 'U001', email: 'admin@vlu.edu.vn', password: 'admin123', name: 'Nguyễn Văn Quản', role: 'admin', department: 'Phòng Đào tạo', avatar: 'Q' },
-        { id: 'U002', email: 'advisor@vlu.edu.vn', password: 'advisor123', name: 'Trần Thị Hương', role: 'advisor', department: 'Khoa CNTT', avatar: 'H' },
-        { id: 'U003', email: 'student@vlu.edu.vn', password: 'student123', name: 'Lê Minh Tuấn', role: 'student', studentId: 'S001', avatar: 'T' },
-        { id: 'U004', email: 'advisor2@vlu.edu.vn', password: 'advisor123', name: 'Phạm Đức Minh', role: 'advisor', department: 'Khoa CNTT', avatar: 'M' },
+        { id: 'U001', email: 'admin@vlu.edu.vn', password: '123456', name: 'Nguyễn Văn Quản', role: 'admin', department: 'Phòng Đào tạo', avatar: 'Q' },
+        { id: 'U002', email: 'advisor@vlu.edu.vn', password: '123456', name: 'Trần Thị Hường', role: 'advisor', department: 'Khoa CNTT', avatar: 'H' },
+        { id: 'U003', email: 'student@vlu.edu.vn', password: '123456', name: 'Lê Minh Tuấn', role: 'student', studentId: 'S001', avatar: 'T' },
+        { id: 'U004', email: 'advisor2@vlu.edu.vn', password: '123456', name: 'Phạm Đức Minh', role: 'advisor', department: 'Khoa CNTT', avatar: 'M' },
     ],
 
     // ── Faculties ──
