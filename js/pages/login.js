@@ -58,34 +58,25 @@ const LoginPage = {
         errorEl.style.display = 'none';
 
         // Simulate network delay
-        setTimeout(async () => {
-            try {
-                const result = await Store.login(email, password);
+        setTimeout(() => {
+            const result = Store.login(email, password);
 
-                if (result.success) {
-                    // Success animation
-                    loginBtn.style.background = 'var(--success)';
-                    btnLoader.innerHTML = '<i data-lucide="check" class=""></i>';
-                    if (window.lucide) lucide.createIcons();
+            if (result.success) {
+                // Success animation
+                loginBtn.style.background = 'var(--success)';
+                btnLoader.innerHTML = '<i data-lucide="check" class=""></i>';
+                if (window.lucide) lucide.createIcons();
 
-                    setTimeout(() => {
-                        App.showApp();
-                        Router.navigate(Router.getDefaultRoute(result.user.role));
-                    }, 500);
-                } else {
-                    btnText.style.display = 'inline';
-                    btnLoader.style.display = 'none';
-                    loginBtn.disabled = false;
-                    loginBtn.style.background = '';
-                    this.showError(result.error);
-                }
-            } catch (err) {
-                console.error("Login Error:", err);
+                setTimeout(() => {
+                    App.showApp();
+                    Router.navigate(Router.getDefaultRoute(result.user.role));
+                }, 500);
+            } else {
                 btnText.style.display = 'inline';
                 btnLoader.style.display = 'none';
                 loginBtn.disabled = false;
                 loginBtn.style.background = '';
-                this.showError("Có lỗi xảy ra: " + err.message);
+                this.showError(result.error);
             }
         }, 800);
     },
