@@ -85,14 +85,23 @@ const AdminReports = {
 
         setTimeout(() => {
             const faculties = Store.getFaculties ? Store.getFaculties() : ['CNTT', 'Kinh tế', 'Ngoại ngữ'];
-            Charts.donut('reportFacultyChart', [45, 30, 25], { labels: faculties });
-            Charts.bar('reportGpaChart', {
-                labels: ['< 2.0', '2.0-2.5', '2.5-3.2', '3.2-3.6', '> 3.6'],
-                datasets: [{
-                    label: 'Số lượng',
-                    data: [5, 15, 50, 20, 10]
-                }]
-            });
+            
+            const facultyData = [
+                { label: faculties[0] || 'CNTT', value: 45 },
+                { label: faculties[1] || 'Kinh tế', value: 30 },
+                { label: faculties[2] || 'Ngoại ngữ', value: 25 }
+            ];
+            Charts.donut('reportFacultyChart', facultyData);
+
+            const gpaData = [
+                { label: '< 2.0', value: 5 },
+                { label: '2.0-2.5', value: 15 },
+                { label: '2.5-3.2', value: 50 },
+                { label: '3.2-3.6', value: 20 },
+                { label: '> 3.6', value: 10 }
+            ];
+            Charts.bar('reportGpaChart', gpaData);
+
             Charts.line('enrollmentChart', [{
                 label: 'Số sinh viên nhập học',
                 data: [3500, 3800, 4200],

@@ -79,14 +79,24 @@ const AdminDashboard = {
 
         setTimeout(() => {
             const faculties = Store.getFaculties ? Store.getFaculties() : ['CNTT', 'Kinh tế', 'Ngoại ngữ'];
-            Charts.donut('facultyChart', [45, 30, 25], { labels: faculties });
-            Charts.bar('gpaChart', {
-                labels: ['< 2.0', '2.0-2.5', '2.5-3.2', '3.2-3.6', '> 3.6'],
-                datasets: [{
-                    label: 'Số lượng sinh viên',
-                    data: [5, 15, 50, 20, 10]
-                }]
-            });
+            
+            // Faculty chart data
+            const facultyData = [
+                { label: faculties[0] || 'CNTT', value: 45 },
+                { label: faculties[1] || 'Kinh tế', value: 30 },
+                { label: faculties[2] || 'Ngoại ngữ', value: 25 }
+            ];
+            Charts.donut('facultyChart', facultyData);
+
+            // GPA chart data
+            const gpaData = [
+                { label: '< 2.0', value: 5 },
+                { label: '2.0-2.5', value: 15 },
+                { label: '2.5-3.2', value: 50 },
+                { label: '3.2-3.6', value: 20 },
+                { label: '> 3.6', value: 10 }
+            ];
+            Charts.bar('gpaChart', gpaData);
         }, 100);
     }
 };

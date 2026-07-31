@@ -106,7 +106,7 @@ const DataTable = {
                     columns.forEach(col => {
                         const colKey = col.field || col.key;
                         let value = item[colKey];
-                        if (col.render) value = col.render(item);
+                        if (col.render) value = col.render(value, item);
                         else if (value === null || value === undefined) value = '—';
                         html += `<td>${value}</td>`;
                     });
