@@ -59,24 +59,33 @@ const LoginPage = {
 
         // Simulate network delay
         setTimeout(async () => {
-            const result = await Store.login(email, password);
+            try {
+                const result = await Store.login(email, password);
 
-            if (result.success) {
-                // Success animation
-                loginBtn.style.background = 'var(--success)';
-                btnLoader.innerHTML = '<i data-lucide="check" class=""></i>';
-                if (window.lucide) lucide.createIcons();
+                if (result.success) {
+                    // Success animation
+                    loginBtn.style.background = 'var(--success)';
+                    btnLoader.innerHTML = '<i data-lucide="check" class=""></i>';
+                    if (window.lucide) lucide.createIcons();
 
-                setTimeout(() => {
-                    App.showApp();
-                    Router.navigate(Router.getDefaultRoute(result.user.role));
-                }, 500);
-            } else {
+                    setTimeout(() => {
+                        App.showApp();
+                        Router.navigate(Router.getDefaultRoute(result.user.role));
+                    }, 500);
+                } else {
+                    btnText.style.display = 'inline';
+                    btnLoader.style.display = 'none';
+                    loginBtn.disabled = false;
+                    loginBtn.style.background = '';
+                    this.showError(result.error);
+                }
+            } catch (err) {
+                console.error("Login Error:", err);
                 btnText.style.display = 'inline';
                 btnLoader.style.display = 'none';
                 loginBtn.disabled = false;
                 loginBtn.style.background = '';
-                this.showError(result.error);
+                this.showError("Có lỗi xảy ra: " + err.message);
             }
         }, 800);
     },

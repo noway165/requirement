@@ -123,14 +123,60 @@ const Store = {
 
     // ── Auth ──
     async login(email, password) {
-        // Since we are migrating from mock data, we will just use the "users" table directly for now.
-        // In a real app, you would use supabase.auth.signInWithPassword.
-        const user = this._state.users.find(u => u.email === email && u.password === password);
-        if (user) {
-            this._state.auth = { user, isLoggedIn: true };
-            return { success: true, user };
+        const checkDemoUser = (e, p) => {
+            const demoUsers = [
+                { id: 'U01', role: 'admin', email: 'admin@vlu.edu.vn', password: 'admin123', name: 'Phòng Đào tạo', avatar: 'P' },
+                { id: 'U02', role: 'advisor', email: 'advisor@vlu.edu.vn', password: 'advisor123', name: 'Nguyễn Văn A', avatar: 'N' },
+                { id: 'U03', role: 'student', email: 'student@vlu.edu.vn', password: 'student123', name: 'Trần Thị B', avatar: 'T' }
+            ];
+            return demoUsers.find(u => u.email === e && u.password === p) || this._state.users.find(u => u.email === e && u.password === p);
+        };
+
+        if (!supabase) {
+            console.warn("Supabase not initialized. Using local fallback.");
+            const user = checkDemoUser(email, password);
+            if (user) {
+                this._state.auth = { user, isLoggedIn: true };
+                return { success: true, user };
+            }
+            return { success: false, error: 'Email hoặc mật khẩu không đúng (Local Mode)' };
         }
-        return { success: false, error: 'Email hoặc mật khẩu không đúng' };
+
+        try {
+            // Authenticate with Supabase
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+            if (error) {
+                // Fallback to our users table for demo purposes
+                const user = checkDemoUser(email, password);
+                if (user) {
+                    this._state.auth = { user, isLoggedIn: true };
+                    return { success: true, user };
+                }
+                return { success: false, error: 'Email hoặc mật khẩu không đúng' };
+            }
+            
+            // If Supabase Auth succeeds, fetch user role from our table
+            const { data: userData } = await supabase.from('users').select('*').eq('email', email).single();
+            if (userData) {
+                this._state.auth = { user: userData, isLoggedIn: true };
+                return { success: true, user: userData };
+            }
+
+            return { success: false, error: 'Không tìm thấy thông tin tài khoản' };
+        } catch (err) {
+            console.error("Login Exception:", err);
+            // Fallback
+            const user = checkDemoUser(email, password);
+            if (user) {
+                this._state.auth = { user, isLoggedIn: true };
+                return { success: true, user };
+            }
+            return { success: false, error: 'Lỗi hệ thống đăng nhập: ' + err.message };
+        }
     },
 
     async logout() {
