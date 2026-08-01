@@ -96,9 +96,10 @@ const AdminSections = {
             ],
             onSubmit: async (data) => {
                 const course = Store.getCourseByCode(data.courseCode);
+                data.courseId = course ? course.id : '';
                 data.courseName = course ? course.name : '';
                 data.code = data.code || `${data.courseCode}_${Math.floor(Math.random() * 1000)}`;
-                data.enrolled = 0;
+                data.enrolledCount = 0;
                 data.maxStudents = parseInt(data.maxStudents, 10);
                 data.status = 'open';
                 

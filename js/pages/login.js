@@ -70,6 +70,14 @@ const LoginPage = {
                 setTimeout(() => {
                     App.showApp();
                     Router.navigate(Router.getDefaultRoute(result.user.role));
+                    
+                    // Reset state so that next time (if logged out) we can log in again
+                    document.getElementById('login-form').reset();
+                    btnText.style.display = 'inline';
+                    btnLoader.style.display = 'none';
+                    btnLoader.innerHTML = '<i data-lucide="loader-2" class="spin"></i>';
+                    loginBtn.disabled = false;
+                    loginBtn.style.background = '';
                 }, 500);
             } else {
                 btnText.style.display = 'inline';
