@@ -23,7 +23,7 @@ window.StudentDashboard = {
             const course = allCourses.find(c => c.id === g.courseId);
             if (course) {
                 earnedCredits += course.credits;
-                totalPoints += (g.grade * course.credits);
+                totalPoints += (Utils.convert10To4Scale(g.grade) * course.credits);
             }
         });
         
@@ -36,7 +36,8 @@ window.StudentDashboard = {
         
         const inProgressCourses = grades.filter(g => g.status === 'in-progress').length;
         
-        const gpaColor = gpa >= 8.0 ? 'var(--success)' : (gpa >= 6.5 ? 'var(--primary)' : (gpa >= 5.0 ? 'var(--warning)' : 'var(--danger)'));
+        const gpaColor = gpa >= 3.2 ? 'var(--success)' : (gpa >= 2.5 ? 'var(--primary)' : (gpa >= 2.0 ? 'var(--warning)' : 'var(--danger)'));
+
 
         const html = `
             <div class="page-title-section">
@@ -95,10 +96,6 @@ window.StudentDashboard = {
                     </div>
                     <div class="progress-ring-container" style="padding:var(--space-6) 0">
                         <canvas id="progressChart"></canvas>
-                        <div class="progress-ring-text">
-                            <span class="progress-ring-value">${progressPercent}%</span>
-                            <span class="progress-ring-label">Hoàn thành</span>
-                        </div>
                     </div>
                     <div style="text-align:center;margin-top:var(--space-4);">
                         <button class="btn btn-outline" onclick="Router.navigate('/student/learning-path')" style="width:100%;">
@@ -131,7 +128,7 @@ window.StudentDashboard = {
                                             <td style="font-family:var(--font-mono);font-size:var(--text-xs);">${course.code}</td>
                                             <td><strong>${course.name}</strong></td>
                                             <td>${course.credits}</td>
-                                            <td><span class="badge ${badge.class}">${badge.text}</span></td>
+                                            <td>${badge}</td>
                                         </tr>
                                     `;
                                 }).join('') || '<tr><td colspan="4" style="text-align:center;color:var(--text-secondary);">Không có môn học nào đang học</td></tr>'}

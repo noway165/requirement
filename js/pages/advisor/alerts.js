@@ -2,7 +2,7 @@ const AdvisorAlerts = {
     render: function() {
         const user = Store.getCurrentUser() || { id: 1 };
         const myStudents = Store.getStudentsByAdvisor ? Store.getStudentsByAdvisor(user.id) : [];
-        const history = Store.getNotifications ? Store.getNotifications().filter(n => n.senderId === user.id) : [];
+        const history = Store.getNotifications ? Store.getNotifications().filter(n => n.from === user.id) : [];
         
         const html = `
             <div class="page-header mb-4">
@@ -64,12 +64,12 @@ const AdvisorAlerts = {
                 <div class="card p-4">
                     <h3 class="font-bold mb-3 border-b pb-2">Lịch sử đã gửi</h3>
                     <div class="history-list max-h-96 overflow-y-auto">
-                        ${history.sort((a,b) => new Date(b.date) - new Date(a.date)).map(h => `
+                        ${history.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).map(h => `
                             <div class="p-3 border-b last:border-0 hover:bg-gray-50">
                                 <h4 class="font-bold text-sm text-blue-700">${h.title}</h4>
                                 <div class="text-xs text-gray-500 flex justify-between mt-1">
-                                    <span>${Utils.formatDateTime ? Utils.formatDateTime(h.date) : new Date(h.date).toLocaleString()}</span>
-                                    <span>${h.recipients ? h.recipients.length : 0} người nhận</span>
+                                    <span>${Utils.formatDateTime ? Utils.formatDateTime(h.createdAt) : new Date(h.createdAt).toLocaleString()}</span>
+                                    <span>Đã gửi</span>
                                 </div>
                             </div>
                         `).join('') || '<p class="text-sm text-gray-500 text-center py-4">Chưa gửi thông báo nào.</p>'}
@@ -141,16 +141,19 @@ const AdvisorAlerts = {
                     for (const stId of selected) {
                         if (Store.addNotification) {
                             await Store.addNotification({
-                                senderId: user.id,
-                                recipientId: stId,
+                                from: user.id,
+                                to: stId,
                                 title: title,
                                 content: content,
-                                date: new Date(),
+                                createdAt: new Date().toISOString(),
+                                type: 'warning',
                                 read: false
                             });
                         }
                     }
-                    if (typeof Toast !== 'undefined') Toast.success('Đã gửi thông báo thành công');
+                    if (typeof Toast !== 'undefined') Toast.success('Thành công', 'Đã gửi cảnh báo học tập');
+                    document.getElementById('alert-title').value = '';
+                    document.getElementById('alert-content').value = '';
                     this.render(); // refresh
                 }
             });

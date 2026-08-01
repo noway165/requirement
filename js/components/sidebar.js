@@ -86,6 +86,9 @@ const Sidebar = {
     },
 
     initToggle() {
+        if (this.toggleInitialized) return;
+        this.toggleInitialized = true;
+
         const sidebar = document.getElementById('sidebar');
         const toggleBtn = document.getElementById('sidebar-toggle');
         const mobileToggle = document.getElementById('mobile-menu-toggle');

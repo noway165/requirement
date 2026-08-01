@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "glob": "^13.0.6",
+    "jsdom": "^30.0.1"
+  },
+  "scripts": {
+    "dev": "npx live-server --port=3000"
+  }
+}

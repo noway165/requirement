@@ -87,6 +87,7 @@ const AdvisorStudents = {
         if (!student) return;
         
         const grades = Store.getGradesByStudent ? Store.getGradesByStudent(student.id) : [];
+        const allCourses = Store.getCourses ? Store.getCourses() : [];
         let gpaStatus = student.gpa < 2.0 ? 'Cảnh báo học vụ' : (student.status === 'behind' ? 'Trễ tiến độ' : 'Bình thường');
         
         const progress = Math.round((student.creditsCompleted / (student.creditsTotal || 120)) * 100);
@@ -133,14 +134,19 @@ const AdvisorStudents = {
                 <table class="table w-full text-sm">
                     <thead><tr><th>Mã HP</th><th>Tên HP</th><th>Tín chỉ</th><th>Điểm</th></tr></thead>
                     <tbody>
-                        ${grades.map(g => `
-                            <tr>
-                                <td>${g.courseId}</td>
-                                <td>${g.courseName}</td>
-                                <td>${g.credits}</td>
-                                <td class="font-bold">${g.grade}</td>
-                            </tr>
-                        `).join('') || '<tr><td colspan="4" class="text-center">Chưa có dữ liệu điểm</td></tr>'}
+                        ${grades.map(g => {
+                            const course = allCourses.find(c => c.id === g.courseId);
+                            const courseName = course ? course.name : g.courseName || 'N/A';
+                            const courseCredits = course ? course.credits : g.credits || 'N/A';
+                            return `
+                                <tr>
+                                    <td>${g.courseId}</td>
+                                    <td>${courseName}</td>
+                                    <td>${courseCredits}</td>
+                                    <td class="font-bold">${g.grade}</td>
+                                </tr>
+                            `;
+                        }).join('') || '<tr><td colspan="4" class="text-center">Chưa có dữ liệu điểm</td></tr>'}
                     </tbody>
                 </table>
             </div>

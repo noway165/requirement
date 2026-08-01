@@ -264,4 +264,19 @@ const Utils = {
         const csv = '\uFEFF' + [headerRow, ...rows].join('\n');
         Utils.downloadFile(csv, filename, 'text/csv;charset=utf-8');
     },
+
+    // ── Grade Conversion ──
+    convert10To4Scale(grade10) {
+        if (grade10 === null || grade10 === undefined) return null;
+        const g = parseFloat(grade10);
+        if (isNaN(g)) return 0;
+        if (g >= 8.5) return 4.0;
+        if (g >= 8.0) return 3.5;
+        if (g >= 7.0) return 3.0;
+        if (g >= 6.5) return 2.5;
+        if (g >= 5.5) return 2.0;
+        if (g >= 5.0) return 1.5;
+        if (g >= 4.0) return 1.0;
+        return 0.0;
+    }
 };

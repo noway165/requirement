@@ -55,19 +55,19 @@ window.StudentCareer = {
             }).filter(Boolean).join(' và ');
 
             suggestionHtml = `
-                <div class="ai-suggestion-banner" style="background: linear-gradient(135deg, var(--primary-100), #e0e7ff); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-6); border: 1px solid var(--primary-200); position: relative; overflow: hidden;">
+                <div class="ai-suggestion-banner" style="background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(139,92,246,0.15)); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-6); border: 1px solid rgba(59,130,246,0.3); box-shadow: 0 8px 32px rgba(59,130,246,0.1); position: relative; overflow: hidden;">
                     <div style="position: absolute; right: -20px; top: -20px; opacity: 0.1; transform: scale(3);">
                         <i data-lucide="sparkles"></i>
                     </div>
                     <div style="display: flex; gap: var(--space-4); align-items: flex-start; position: relative; z-index: 1;">
-                        <div style="background: white; padding: var(--space-3); border-radius: 50%; color: var(--primary); box-shadow: var(--shadow-sm);">
+                        <div style="background: rgba(59,130,246,0.2); padding: var(--space-3); border-radius: 50%; color: var(--primary); box-shadow: 0 0 15px rgba(59,130,246,0.4); border: 1px solid rgba(59,130,246,0.4);">
                             <i data-lucide="bot" style="width: 32px; height: 32px;"></i>
                         </div>
                         <div>
-                            <h2 style="color: var(--primary-800); margin: 0 0 var(--space-2) 0; font-size: 1.25rem;">AI Gợi ý: ${topTarget.title}</h2>
+                            <h2 style="color: var(--primary); margin: 0 0 var(--space-2) 0; font-size: 1.25rem;">AI Gợi ý: ${topTarget.title}</h2>
                             <p style="color: var(--text-secondary); margin: 0 0 var(--space-3) 0; line-height: 1.5;">
                                 Dựa trên kết quả học tập của bạn, đặc biệt là điểm số xuất sắc ở môn ${strongCourseNames || 'các môn cốt lõi'}, 
-                                hệ thống nhận thấy bạn rất có tiềm năng theo đuổi con đường <strong>${topTarget.title}</strong>.
+                                hệ thống nhận thấy bạn rất có tiềm năng theo đuổi con đường <strong style="color: var(--text-primary);">${topTarget.title}</strong>.
                             </p>
                             <button class="btn btn-primary" onclick="StudentCareer.showDetail('${topTarget.id}')">
                                 Xem chi tiết lộ trình này

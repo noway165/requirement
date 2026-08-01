@@ -15,6 +15,10 @@ const Store = {
             this._state = JSON.parse(localStorage.getItem('vlu_smartedu_data'));
             // Always sync users from MOCK_DATA to fix password mismatches after updates
             this._state.users = JSON.parse(JSON.stringify(MOCK_DATA.users));
+            this._state.students = JSON.parse(JSON.stringify(MOCK_DATA.students));
+            if (MOCK_DATA.learningPaths) {
+                this._state.learningPaths = JSON.parse(JSON.stringify(MOCK_DATA.learningPaths));
+            }
             this.save();
         }
         // Always ensure auth state
@@ -58,13 +62,46 @@ const Store = {
     getCurrentUser() { return this._state.auth?.user || null; },
     isLoggedIn() { return this._state.auth?.isLoggedIn || false; },
 
+    // Helper to calculate real GPA and credits
+    _enrichStudent(student) {
+        if (!student) return student;
+        const grades = this.getGradesByStudent(student.id);
+        
+        // If there is no mock grade data for this student, return their static mock data
+        if (!grades || grades.length === 0) {
+            return student;
+        }
+
+        const allCourses = this.getCourses();
+        let earnedCredits = 0;
+        let totalPoints = 0;
+        
+        const completedCourses = grades.filter(g => g.grade >= 5);
+        completedCourses.forEach(g => {
+            const course = allCourses.find(c => c.id === g.courseId);
+            if (course) {
+                earnedCredits += course.credits;
+                let scale4 = Utils ? Utils.convert10To4Scale(g.grade) : 0;
+                totalPoints += (scale4 * course.credits);
+            }
+        });
+        
+        const gpa = earnedCredits > 0 ? parseFloat((totalPoints / earnedCredits).toFixed(2)) : 0.00;
+        
+        return {
+            ...student,
+            gpa: gpa,
+            creditsCompleted: earnedCredits
+        };
+    },
+
     // ── Students ──
-    getStudents() { return this._state.students || []; },
-    getStudentById(id) { return this._state.students.find(s => s.id === id); },
-    getStudentByMSSV(mssv) { return this._state.students.find(s => s.mssv === mssv); },
+    getStudents() { return (this._state.students || []).map(s => this._enrichStudent(s)); },
+    getStudentById(id) { return this._enrichStudent(this._state.students.find(s => s.id === id)); },
+    getStudentByMSSV(mssv) { return this._enrichStudent(this._state.students.find(s => s.mssv === mssv)); },
     
     getStudentsByAdvisor(advisorId) {
-        return this._state.students.filter(s => s.advisorId === advisorId);
+        return this._state.students.filter(s => s.advisorId === advisorId).map(s => this._enrichStudent(s));
     },
 
     addStudent(student) {

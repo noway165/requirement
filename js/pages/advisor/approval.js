@@ -100,7 +100,20 @@ const AdvisorApproval = {
                 onConfirm: async () => {
                     if (Store.updateLearningPath) await Store.updateLearningPath(planId, { approvalStatus: 'approved' });
                     if (Store.addAdvisoryLog) await Store.addAdvisoryLog({ planId, action: 'approved', date: new Date() });
-                    if (typeof Toast !== 'undefined') Toast.success('Đã duyệt kế hoạch học tập');
+                    
+                    const plan = Store._state.learningPaths.find(p => p.id === planId);
+                    if (plan && Store.addNotification) {
+                        Store.addNotification({
+                            from: Store.getCurrentUser().id,
+                            to: plan.studentId,
+                            title: 'Kết quả phê duyệt lộ trình',
+                            content: `Lộ trình học tập ${plan.semester} của bạn đã được phê duyệt.`,
+                            type: 'success',
+                            read: false
+                        });
+                    }
+
+                    if (typeof Toast !== 'undefined') Toast.success('Thành công', 'Đã duyệt kế hoạch học tập');
                     this.render();
                 }
             });
@@ -114,16 +127,29 @@ const AdvisorApproval = {
                 fields: [
                     { name: 'reason', label: 'Lý do từ chối (bắt buộc)', type: 'textarea', required: true }
                 ],
-                onSubmit: async (data) => {
+                onSubmit: async (data, instance) => {
                     if (!data.reason.trim()) {
-                        if (typeof Toast !== 'undefined') Toast.error('Vui lòng nhập lý do từ chối');
-                        return false; // Prevent close
+                        if (typeof Toast !== 'undefined') Toast.error('Lỗi', 'Vui lòng nhập lý do từ chối');
+                        return;
                     }
                     if (Store.updateLearningPath) await Store.updateLearningPath(planId, { approvalStatus: 'rejected', advisorNote: data.reason });
                     if (Store.addAdvisoryLog) await Store.addAdvisoryLog({ planId, action: 'rejected', note: data.reason, date: new Date() });
-                    if (typeof Toast !== 'undefined') Toast.success('Đã từ chối kế hoạch học tập');
+                    
+                    const plan = Store._state.learningPaths.find(p => p.id === planId);
+                    if (plan && Store.addNotification) {
+                        Store.addNotification({
+                            from: Store.getCurrentUser().id,
+                            to: plan.studentId,
+                            title: 'Kế hoạch học tập bị từ chối',
+                            content: `Lộ trình ${plan.semester} của bạn bị từ chối. Lý do: ${data.reason}`,
+                            type: 'danger',
+                            read: false
+                        });
+                    }
+
+                    if (typeof Toast !== 'undefined') Toast.success('Thành công', 'Đã từ chối kế hoạch học tập');
+                    if (instance) instance.close();
                     this.render();
-                    return true;
                 }
             });
         }

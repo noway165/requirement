@@ -28,7 +28,7 @@ const MOCK_DATA = {
 
     // ── Students ──
     students: [
-        { id: 'S001', mssv: '2174802010000', name: 'Lê Minh Tuấn', email: '2174802010000@vlu.edu.vn', phone: '0901234567', faculty: 'CNTT', major: 'Kỹ thuật Phần mềm', enrollYear: 2021, gpa: 3.2, creditsCompleted: 95, totalCredits: 140, status: 'active', advisorId: 'U002', curriculumId: 'CUR001', gender: 'Nam', dob: '2003-05-15' },
+        { id: 'S001', mssv: '2174802010000', name: 'Lê Minh Tuấn', email: 'student@vlu.edu.vn', phone: '0901234567', faculty: 'CNTT', major: 'Kỹ thuật Phần mềm', enrollYear: 2021, gpa: 3.2, creditsCompleted: 95, totalCredits: 140, status: 'active', advisorId: 'U002', curriculumId: 'CUR001', gender: 'Nam', dob: '2003-05-15' },
         { id: 'S002', mssv: '2174802010001', name: 'Nguyễn Thị Mai', email: '2174802010001@vlu.edu.vn', phone: '0912345678', faculty: 'CNTT', major: 'Kỹ thuật Phần mềm', enrollYear: 2021, gpa: 3.6, creditsCompleted: 105, totalCredits: 140, status: 'active', advisorId: 'U002', curriculumId: 'CUR001', gender: 'Nữ', dob: '2003-03-20' },
         { id: 'S003', mssv: '2174802010002', name: 'Phạm Hoàng Dũng', email: '2174802010002@vlu.edu.vn', phone: '0923456789', faculty: 'CNTT', major: 'Hệ thống Thông tin', enrollYear: 2021, gpa: 1.8, creditsCompleted: 70, totalCredits: 140, status: 'warning', advisorId: 'U002', curriculumId: 'CUR001', gender: 'Nam', dob: '2003-08-10' },
         { id: 'S004', mssv: '2174802010003', name: 'Trần Thùy Linh', email: '2174802010003@vlu.edu.vn', phone: '0934567890', faculty: 'CNTT', major: 'Kỹ thuật Phần mềm', enrollYear: 2022, gpa: 3.8, creditsCompleted: 65, totalCredits: 140, status: 'active', advisorId: 'U002', curriculumId: 'CUR001', gender: 'Nữ', dob: '2004-01-25' },
@@ -240,6 +240,21 @@ const MOCK_DATA = {
         { id: 'CT004', title: 'Cybersecurity Engineer', icon: 'shield', description: 'Bảo mật hệ thống thông tin', requiredSkills: ['Networking', 'Security', 'Cryptography', 'Ethical Hacking'], recommendedCourses: ['C007', 'C011', 'C008'] },
         { id: 'CT005', title: 'DevOps Engineer', icon: 'git-branch', description: 'CI/CD và vận hành hệ thống', requiredSkills: ['Linux', 'Docker', 'K8s', 'Cloud'], recommendedCourses: ['C008', 'C026', 'C027'] },
         { id: 'CT006', title: 'Full-stack Developer', icon: 'layers', description: 'Phát triển toàn diện web app', requiredSkills: ['Frontend', 'Backend', 'Database', 'DevOps'], recommendedCourses: ['C003', 'C004', 'C006', 'C005', 'C026'] },
+    ],
+
+    // ── Learning Paths (For Approval Demo) ──
+    learningPaths: [
+        {
+            id: 'LP001',
+            studentId: 'S001',
+            semester: 'HK1 2026-2027',
+            selectedCourses: ['CS401', 'CS402', 'CS403'],
+            suggestedCourses: ['CS401', 'CS402', 'CS403'],
+            totalCredits: 9,
+            createdAt: new Date().toISOString().split('T')[0],
+            advisorNote: '',
+            approvalStatus: 'pending' // pending, approved, rejected
+        }
     ],
 
     // ── Report Data ──
