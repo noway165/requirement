@@ -104,7 +104,10 @@ const AdminCurriculum = {
     showDetailModal: function(id) {
         const curriculum = Store.getCurriculumById(id);
         const coursesHtml = curriculum.courses && curriculum.courses.length > 0 
-            ? curriculum.courses.map(c => `<li>${c.code} - ${c.name} (${c.credits} TC)</li>`).join('') 
+            ? curriculum.courses.map(cId => {
+                const course = Store.getCourseById(cId);
+                return course ? `<li>${course.code} - ${course.name} (${course.credits} TC)</li>` : `<li>Không tìm thấy môn học (${cId})</li>`;
+            }).join('') 
             : '<li>Chưa có môn học</li>';
             
         const content = `
