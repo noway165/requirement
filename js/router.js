@@ -112,6 +112,7 @@ const Router = {
 
         const routeNames = {
             '/admin/dashboard': ['Phòng Đào tạo', 'Dashboard'],
+            '/admin/forecast': ['Phòng Đào tạo', 'Dự báo Nhu cầu'],
             '/admin/students': ['Phòng Đào tạo', 'Quản lý Sinh viên'],
             '/admin/courses': ['Phòng Đào tạo', 'Quản lý Học phần'],
             '/admin/curriculum': ['Phòng Đào tạo', 'Chương trình Đào tạo'],

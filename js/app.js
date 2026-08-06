@@ -63,6 +63,11 @@ const App = {
     registerRoutes() {
         // Admin routes
         Router.register('/admin/dashboard', () => AdminDashboard.render());
+        Router.register('/admin/forecast', () => {
+            const content = document.getElementById('page-content');
+            content.innerHTML = AdminForecast.render();
+            AdminForecast.init();
+        });
         Router.register('/admin/students', () => AdminStudents.render());
         Router.register('/admin/courses', () => AdminCourses.render());
         Router.register('/admin/curriculum', () => AdminCurriculum.render());

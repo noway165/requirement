@@ -255,6 +255,14 @@ const Store = {
         return { success: true };
     },
 
+    deleteSection(id) {
+        const idx = this._state.sections.findIndex(s => s.id === id);
+        if (idx === -1) return { success: false, error: 'Không tìm thấy lớp HP' };
+        this._state.sections.splice(idx, 1);
+        this.save();
+        return { success: true };
+    },
+
     // ── Grades ──
     getGrades() { return this._state.grades || []; },
     getGradesByStudent(studentId) { return this._state.grades.filter(g => g.studentId === studentId); },

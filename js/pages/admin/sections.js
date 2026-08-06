@@ -68,6 +68,12 @@ const AdminSections = {
                     icon: 'power',
                     label: 'Đóng/Mở lớp',
                     onClick: (row) => this.toggleStatus(row.id)
+                },
+                {
+                    icon: 'trash-2',
+                    label: 'Xóa',
+                    class: 'text-red-500 hover:bg-red-50',
+                    onClick: (row) => this.deleteSection(row.id)
                 }
             ],
             pageSize: 10
@@ -142,6 +148,22 @@ const AdminSections = {
                 await Store.updateSection(id, { ...section, status: newStatus });
                 Toast.success('Thành công', 'Đã thay đổi trạng thái');
                 this.renderTable();
+            }
+        });
+    },
+
+    deleteSection: function(id) {
+        Modal.confirm({
+            title: 'Xác nhận xóa',
+            message: 'Bạn có chắc chắn muốn xóa lớp học phần này? Thao tác này không thể hoàn tác.',
+            onConfirm: async () => {
+                const result = await Store.deleteSection(id);
+                if (result.success) {
+                    Toast.success('Thành công', 'Đã xóa lớp học phần');
+                    this.renderTable();
+                } else {
+                    Toast.error('Lỗi', result.error);
+                }
             }
         });
     }
