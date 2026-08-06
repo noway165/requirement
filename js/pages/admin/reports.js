@@ -120,10 +120,27 @@ const AdminReports = {
 
     exportExcel: function() {
         if (typeof Utils !== 'undefined' && typeof Utils.exportToCSV === 'function') {
+<<<<<<< HEAD
             Utils.exportToCSV('Báo cáo thống kê', [['Mục', 'Giá trị'], ['Sinh viên', (Store.getStudents ? Store.getStudents().length : 0)], ['Môn học', (Store.getCourses ? Store.getCourses().length : 0)]]);
             Toast.success('Thành công', 'Đã tải xuống báo cáo Excel');
         } else {
             Toast.success('Thành công', 'Đã tải xuống báo cáo Excel');
+=======
+            const data = [
+                { item: 'Tổng sinh viên', value: Store.getStudents ? Store.getStudents().length : 0 },
+                { item: 'Môn học đang mở', value: Store.getCourses ? Store.getCourses().length : 0 },
+                { item: 'Chương trình đào tạo', value: Store.getCurricula ? Store.getCurricula().length : 0 },
+                { item: 'Lớp học phần mở', value: Store.getSections ? Store.getSections().length : 0 }
+            ];
+            const headers = [
+                { label: 'Mục', key: 'item' },
+                { label: 'Giá trị', key: 'value' }
+            ];
+            Utils.exportToCSV(data, headers, 'BaoCaoThongKe.csv');
+            Toast.success('Thành công', 'Đã tải xuống báo cáo Excel');
+        } else {
+            Toast.error('Lỗi', 'Tính năng tải báo cáo hiện chưa khả dụng');
+>>>>>>> ccf133813d7bcadedd9c25cabfcc38c0a9aac051
         }
     },
     

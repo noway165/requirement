@@ -73,11 +73,20 @@ const Modal = {
     form({ title, fields, onSubmit, submitText = 'Lưu', size = '' } = {}) {
         let formHTML = '<form id="modal-form" class="modal-form">';
         fields.forEach(field => {
+<<<<<<< HEAD
             formHTML += `<div class="form-group">`;
             formHTML += `<label for="field-${field.key}">${field.label}${field.required ? ' <span style="color:var(--danger)">*</span>' : ''}</label>`;
             
             if (field.type === 'select') {
                 formHTML += `<select id="field-${field.key}" ${field.required ? 'required' : ''}>`;
+=======
+            const key = field.name || field.key;
+            formHTML += `<div class="form-group">`;
+            formHTML += `<label for="field-${key}">${field.label}${field.required ? ' <span style="color:var(--danger)">*</span>' : ''}</label>`;
+            
+            if (field.type === 'select') {
+                formHTML += `<select id="field-${key}" ${field.required ? 'required' : ''}>`;
+>>>>>>> ccf133813d7bcadedd9c25cabfcc38c0a9aac051
                 formHTML += `<option value="">-- Chọn --</option>`;
                 (field.options || []).forEach(opt => {
                     const selected = opt.value === field.value ? 'selected' : '';
@@ -85,9 +94,15 @@ const Modal = {
                 });
                 formHTML += `</select>`;
             } else if (field.type === 'textarea') {
+<<<<<<< HEAD
                 formHTML += `<textarea id="field-${field.key}" placeholder="${field.placeholder || ''}" ${field.required ? 'required' : ''} rows="4" ${field.maxLength ? `maxlength="${field.maxLength}"` : ''}>${field.value || ''}</textarea>`;
             } else {
                 formHTML += `<input type="${field.type || 'text'}" id="field-${field.key}" value="${field.value || ''}" placeholder="${field.placeholder || ''}" ${field.required ? 'required' : ''} ${field.min !== undefined ? `min="${field.min}"` : ''} ${field.max !== undefined ? `max="${field.max}"` : ''}>`;
+=======
+                formHTML += `<textarea id="field-${key}" placeholder="${field.placeholder || ''}" ${field.required ? 'required' : ''} rows="4" ${field.maxLength ? `maxlength="${field.maxLength}"` : ''}>${field.value || ''}</textarea>`;
+            } else {
+                formHTML += `<input type="${field.type || 'text'}" id="field-${key}" value="${field.value || ''}" placeholder="${field.placeholder || ''}" ${field.required ? 'required' : ''} ${field.min !== undefined ? `min="${field.min}"` : ''} ${field.max !== undefined ? `max="${field.max}"` : ''}>`;
+>>>>>>> ccf133813d7bcadedd9c25cabfcc38c0a9aac051
             }
             formHTML += `</div>`;
         });
@@ -110,9 +125,16 @@ const Modal = {
                 }
                 const data = {};
                 fields.forEach(field => {
+<<<<<<< HEAD
                     const el = document.getElementById(`field-${field.key}`);
                     if (el) {
                         data[field.key] = field.type === 'number' ? parseFloat(el.value) : el.value;
+=======
+                    const key = field.name || field.key;
+                    const el = document.getElementById(`field-${key}`);
+                    if (el) {
+                        data[key] = field.type === 'number' ? parseFloat(el.value) : el.value;
+>>>>>>> ccf133813d7bcadedd9c25cabfcc38c0a9aac051
                     }
                 });
                 if (onSubmit) onSubmit(data, instance);

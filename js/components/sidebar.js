@@ -46,6 +46,7 @@ const Sidebar = {
                 { label: 'Tổng quan', items: [
                     { icon: 'layout-dashboard', text: 'Dashboard', route: '/admin/dashboard' },
                 ]},
+<<<<<<< HEAD
                 { label: 'Quản lý', items: [
                     { icon: 'users', text: 'Sinh viên', route: '/admin/students' },
                     { icon: 'book-open', text: 'Học phần', route: '/admin/courses' },
@@ -55,6 +56,20 @@ const Sidebar = {
                 ]},
                 { label: 'Báo cáo', items: [
                     { icon: 'bar-chart-3', text: 'Thống kê & Báo cáo', route: '/admin/reports' },
+=======
+                { label: 'Khung CT & Điều kiện', items: [
+                    { icon: 'graduation-cap', text: 'Khung Chương trình', route: '/admin/curriculum' },
+                    { icon: 'book-open', text: 'Quản lý Học phần', route: '/admin/courses' },
+                    { icon: 'git-branch', text: 'Môn tiên quyết', route: '/admin/prerequisites' },
+                ]},
+                { label: 'Dự báo & Kế hoạch', items: [
+                    { icon: 'trending-up', text: 'Dự báo Nhu cầu', route: '/admin/forecast' },
+                    { icon: 'calendar-plus', text: 'Kế hoạch Mở lớp', route: '/admin/sections' },
+                ]},
+                { label: 'Thống kê & Quản lý', items: [
+                    { icon: 'bar-chart-3', text: 'Báo cáo Tổng hợp', route: '/admin/reports' },
+                    { icon: 'users', text: 'Dữ liệu Sinh viên', route: '/admin/students' },
+>>>>>>> ccf133813d7bcadedd9c25cabfcc38c0a9aac051
                 ]},
             ],
             advisor: [

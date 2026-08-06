@@ -1,5 +1,9 @@
 // ============================================
 // VLU SmartEdu — Main Application
+<<<<<<< HEAD
+=======
+// Version: v21 - Clean rebuild
+>>>>>>> ccf133813d7bcadedd9c25cabfcc38c0a9aac051
 // ============================================
 
 const App = {
@@ -63,6 +67,14 @@ const App = {
     registerRoutes() {
         // Admin routes
         Router.register('/admin/dashboard', () => AdminDashboard.render());
+<<<<<<< HEAD
+=======
+        Router.register('/admin/forecast', () => {
+            const content = document.getElementById('page-content');
+            content.innerHTML = AdminForecast.render();
+            AdminForecast.init();
+        });
+>>>>>>> ccf133813d7bcadedd9c25cabfcc38c0a9aac051
         Router.register('/admin/students', () => AdminStudents.render());
         Router.register('/admin/courses', () => AdminCourses.render());
         Router.register('/admin/curriculum', () => AdminCurriculum.render());
