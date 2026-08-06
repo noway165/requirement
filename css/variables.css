@@ -1,0 +1,183 @@
+/* ============================================
+   VLU SmartEdu — Design Tokens
+   Brand: Đại học Văn Lang (#C8102E)
+   ============================================ */
+
+:root {
+    /* ── Brand Colors ── */
+    --vlu-red: #C8102E;
+    --vlu-red-light: #E8353F;
+    --vlu-red-dark: #A00D24;
+    --vlu-red-50: rgba(200, 16, 46, 0.05);
+    --vlu-red-100: rgba(200, 16, 46, 0.1);
+    --vlu-red-200: rgba(200, 16, 46, 0.2);
+
+    /* ── Primary (used for accents & CTAs) ── */
+    --primary: #C8102E;
+    --primary-light: #E8353F;
+    --primary-dark: #A00D24;
+    --primary-50: rgba(200, 16, 46, 0.05);
+    --primary-100: rgba(200, 16, 46, 0.1);
+    --primary-200: rgba(200, 16, 46, 0.2);
+    --primary-gradient: linear-gradient(135deg, #C8102E, #E8353F);
+    --primary-gradient-hover: linear-gradient(135deg, #A00D24, #C8102E);
+
+    /* ── Semantic Colors ── */
+    --success: #10B981;
+    --success-light: #34D399;
+    --success-dark: #059669;
+    --success-bg: rgba(16, 185, 129, 0.1);
+
+    --warning: #F59E0B;
+    --warning-light: #FBBF24;
+    --warning-dark: #D97706;
+    --warning-bg: rgba(245, 158, 11, 0.1);
+
+    --danger: #EF4444;
+    --danger-light: #F87171;
+    --danger-dark: #DC2626;
+    --danger-bg: rgba(239, 68, 68, 0.1);
+
+    --info: #3B82F6;
+    --info-light: #60A5FA;
+    --info-dark: #2563EB;
+    --info-bg: rgba(59, 130, 246, 0.1);
+
+    /* ── Neutrals (Dark Theme Default) ── */
+    --bg-primary: #0F1117;
+    --bg-secondary: #161922;
+    --bg-tertiary: #1C1F2E;
+    --bg-elevated: #222639;
+    --bg-hover: #282D42;
+    --bg-active: #2E3450;
+
+    --surface-1: #1A1D2E;
+    --surface-2: #1F2337;
+    --surface-3: #252940;
+
+    --border-primary: rgba(255, 255, 255, 0.08);
+    --border-secondary: rgba(255, 255, 255, 0.05);
+    --border-active: rgba(200, 16, 46, 0.4);
+
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --text-tertiary: #64748B;
+    --text-inverse: #0F1117;
+    --text-on-primary: #FFFFFF;
+
+    /* ── Glass Effect ── */
+    --glass-bg: rgba(26, 29, 46, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --glass-blur: blur(20px);
+
+    /* ── Typography ── */
+    --font-primary: 'Be Vietnam Pro', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+    --text-xs: 0.75rem;     /* 12px */
+    --text-sm: 0.8125rem;   /* 13px */
+    --text-base: 0.875rem;  /* 14px */
+    --text-md: 0.9375rem;   /* 15px */
+    --text-lg: 1rem;        /* 16px */
+    --text-xl: 1.125rem;    /* 18px */
+    --text-2xl: 1.25rem;    /* 20px */
+    --text-3xl: 1.5rem;     /* 24px */
+    --text-4xl: 1.875rem;   /* 30px */
+    --text-5xl: 2.25rem;    /* 36px */
+
+    --font-light: 300;
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    --font-extrabold: 800;
+
+    --leading-tight: 1.25;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.75;
+
+    /* ── Spacing ── */
+    --space-1: 0.25rem;   /* 4px */
+    --space-2: 0.5rem;    /* 8px */
+    --space-3: 0.75rem;   /* 12px */
+    --space-4: 1rem;      /* 16px */
+    --space-5: 1.25rem;   /* 20px */
+    --space-6: 1.5rem;    /* 24px */
+    --space-8: 2rem;      /* 32px */
+    --space-10: 2.5rem;   /* 40px */
+    --space-12: 3rem;     /* 48px */
+    --space-16: 4rem;     /* 64px */
+
+    /* ── Border Radius ── */
+    --radius-xs: 4px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 20px;
+    --radius-full: 9999px;
+
+    /* ── Shadows ── */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.35);
+    --shadow-glow: 0 0 20px rgba(200, 16, 46, 0.3);
+    --shadow-glow-sm: 0 0 10px rgba(200, 16, 46, 0.2);
+
+    /* ── Transitions ── */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 350ms ease;
+    --transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* ── Layout ── */
+    --sidebar-width: 260px;
+    --sidebar-collapsed-width: 72px;
+    --header-height: 64px;
+    --page-padding: var(--space-6);
+
+    /* ── Z-Index ── */
+    --z-sidebar: 100;
+    --z-header: 90;
+    --z-modal: 200;
+    --z-toast: 300;
+    --z-tooltip: 150;
+    --z-dropdown: 120;
+    --z-notification: 180;
+}
+
+/* ── Light Theme Override ── */
+[data-theme="light"] {
+    --bg-primary: #F8FAFC;
+    --bg-secondary: #FFFFFF;
+    --bg-tertiary: #F1F5F9;
+    --bg-elevated: #FFFFFF;
+    --bg-hover: #F1F5F9;
+    --bg-active: #E2E8F0;
+
+    --surface-1: #FFFFFF;
+    --surface-2: #F8FAFC;
+    --surface-3: #F1F5F9;
+
+    --border-primary: rgba(0, 0, 0, 0.08);
+    --border-secondary: rgba(0, 0, 0, 0.04);
+    --border-active: rgba(200, 16, 46, 0.3);
+
+    --text-primary: #1E293B;
+    --text-secondary: #64748B;
+    --text-tertiary: #94A3B8;
+    --text-inverse: #F1F5F9;
+
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.06);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.12);
+}
