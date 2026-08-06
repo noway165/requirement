@@ -1,5 +1,6 @@
 // ============================================
 // VLU SmartEdu — Main Application
+// Version: v21 - Clean rebuild
 // ============================================
 
 const App = {
